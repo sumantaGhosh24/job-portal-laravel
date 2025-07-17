@@ -4,36 +4,6 @@ Registration/Login: Secure registration and login for both types of users.
 Forgot Password/Reset Password: Standard password management.
 Email Verification: To ensure valid user accounts.
 
-Job Posting Module (Employer-facing):
-Post Job: Form for employers to post new job openings (title, description, requirements, salary range, location, job type, company details).
-Job Listing Management: Employers can view, edit, mark as filled, or delete their posted jobs.
-Applicant Tracking: Employers can view applications for their jobs.
-
-Job Search & Discovery (Job Seeker-facing):
-Keyword Search: Search by job title, company, or keywords.
-Location Search: Filter by city, state, or remote.
-Advanced Filters: Filter by job type (full-time, part-time, contract), salary range, industry, experience level.
-Job Categories: Browse jobs by predefined categories.
-Job Details Page: Comprehensive view of a job posting.
-
-Application Management (Job Seeker-facing):
-Apply Now: Mechanism for job seekers to apply (upload resume, cover letter, fill out a form).
-Application History: Job seekers can view the status of their applications.
-Saved Jobs: Ability to save jobs for later application.
-
-Profile Management:
-Job Seeker Profile: Ability to create and manage a detailed profile (resume, education, experience, skills, portfolio).
-Employer Profile: Company profile, branding, contact information.
-
-Admin Panel:
-User Management: Manage (create, edit, delete, activate/deactivate) job seekers and employers.
-Job Management: Moderate, approve, or remove job postings.
-Category Management: Manage job categories and industries.
-Content Management: Manage static pages (About Us, Contact, Privacy Policy).
-
-Notifications:
-Email notifications for new applications, job alerts, status updates.
-
 Employer Profile:
 
 I. Core Company Information:
@@ -146,3 +116,33 @@ References (Optional / "Available upon request"): Usually not directly listed on
 XI. Privacy Settings (Backend & UI feature):
 Profile Visibility: Public, Private, Visible only to Applied Companies.
 Resume Downloadable: Yes/No.
+
+Job Posting Module (Employer-facing):
+Post Job: Form for employers to post new job openings (title, description, requirements, salary range, location, job type, company details).
+Job Listing Management: Employers can view, edit, mark as filled, or delete their posted jobs.
+Applicant Tracking: Employers can view applications for their jobs.
+
+Job Search & Discovery (Job Seeker-facing):
+Keyword Search: Search by job title, company, or keywords.
+Location Search: Filter by city, state, or remote.
+Advanced Filters: Filter by job type (full-time, part-time, contract), salary range, industry, experience level.
+Job Categories: Browse jobs by predefined categories.
+Job Details Page: Comprehensive view of a job posting.
+
+Application Management (Job Seeker-facing):
+Apply Now: Mechanism for job seekers to apply (upload resume, cover letter, fill out a form).
+Application History: Job seekers can view the status of their applications.
+Saved Jobs: Ability to save jobs for later application.
+
+Profile Management:
+Job Seeker Profile: Ability to create and manage a detailed profile (resume, education, experience, skills, portfolio).
+Employer Profile: Company profile, branding, contact information.
+
+Admin Panel:
+User Management: Manage (create, edit, delete, activate/deactivate) job seekers and employers.
+Job Management: Moderate, approve, or remove job postings.
+Category Management: Manage job categories and industries.
+Content Management: Manage static pages (About Us, Contact, Privacy Policy).
+
+Notifications:
+Email notifications for new applications, job alerts, status updates.
