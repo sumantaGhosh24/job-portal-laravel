@@ -13,6 +13,10 @@ class ProfileController extends Controller
         return view('home');
     }
 
+    public function show() {
+        return view('profile');
+    }
+
     public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();

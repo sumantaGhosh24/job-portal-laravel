@@ -25,6 +25,8 @@
     <title>{{ $title }} | {{ config('app.name', 'Job Portal') }}</title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
 <body>
@@ -40,6 +42,7 @@
 
                 @auth('web')
                     <li><a href="{{ route('home') }}">Home</a></li>
+                    <li><a href="{{ route('profile') }}">Profile</a></li>
                     <li><a href="{{ route('logout') }}">Logout</a></li>
                     {{-- <li><a href="{{ route('user.profile.edit') }}">Profile</a></li> --}}
                     {{-- <div class="dropdown inline-block relative">
