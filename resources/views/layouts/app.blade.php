@@ -10,10 +10,7 @@
     <meta name="keywords" content="travel, foreign trip, international vacation" />
 
     <!--==================== favicon ====================-->
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/favicon-32x32.png') }}" />
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/favicon-16x16.png') }}" />
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/apple-touch-icon.png') }}" />
-    <link rel="manifest" href="{{ asset('images/site.webmanifest') }}" />
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="msapplication-TileColor" content="#000000" />
@@ -36,15 +33,15 @@
             <a href="#" class="text-2xl font-bold">Logo</a>
             <ul class="flex space-x-4">
                 @guest
-                    <li><a href="{{ route('home') }}">Home</a></li>
+                    <li><a href="{{ route('welcome') }}">Home</a></li>
                     <li><a href="{{ route('register') }}">Register</a></li>
                     <li><a href="{{ route('login') }}">Login</a></li>
                 @endguest
 
                 @auth('web')
-                    {{-- <li><a href="{{ route('user.dashboard') }}">Home</a></li>
-                    <li><a href="{{ route('user.profile.edit') }}">Profile</a></li>
-                    <li><a href="{{ route('user.logout') }}">Logout</a></li> --}}
+                    <li><a href="{{ route('home') }}">Home</a></li>
+                    <li><a href="{{ route('logout') }}">Logout</a></li>
+                    {{-- <li><a href="{{ route('user.profile.edit') }}">Profile</a></li> --}}
                     {{-- <div class="dropdown inline-block relative">
                         <button class="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
                             <span class="mr-1">Manage</span>
@@ -54,11 +51,11 @@
                         </button>
                         <ul class="dropdown-menu absolute hidden text-gray-700 pt-1">
                             <li><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
-                                    href="{{ route('admin.users') }}">Users</a></li>
+                                    href="{{ route('users') }}">Users</a></li>
                             <li><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
-                                    href="{{ route('admin.employers') }}">Employers</a></li>
+                                    href="{{ route('employers') }}">Employers</a></li>
                             <li><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
-                                    href="{{ route('admin.admins') }}">Admins</a></li>
+                                    href="{{ route('admins') }}">Admins</a></li>
                         </ul>
                     </div> --}}
                 @endauth
