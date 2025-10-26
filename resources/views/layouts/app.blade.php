@@ -42,7 +42,7 @@
 
                 @auth('web')
                     <li><a href="{{ route('home') }}">Home</a></li>
-                    <li><a href="{{ route('profile') }}">Profile</a></li>
+                    <li><a href="{{ route('profile', ['id' => $user_id]) }}">Profile</a></li>
                     <li><a href="{{ route('logout') }}">Logout</a></li>
                     {{-- <li><a href="{{ route('user.profile.edit') }}">Profile</a></li> --}}
                     {{-- <div class="dropdown inline-block relative">

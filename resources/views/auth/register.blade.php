@@ -8,16 +8,16 @@
                 <form method="POST" action="{{ route('register') }}">
                     @csrf
                     <div>
-                        <x-input-label for="firstName" :value="__('First Name')" />
-                        <x-text-input id="firstName" class="" type="text" name="firstName" :value="old('firstName')"
-                            required autofocus autocomplete="firstName" />
-                        <x-input-error :messages="$errors->get('firstName')" class="mt-2" />
+                        <x-input-label for="first_name" :value="__('First Name')" />
+                        <x-text-input id="first_name" class="" type="text" name="first_name" :value="old('first_name')"
+                            required autofocus autocomplete="first_name" />
+                        <x-input-error :messages="$errors->get('first_name')" class="mt-2" />
                     </div>
                     <div class='mt-4'>
-                        <x-input-label for="lastName" :value="__('Last Name')" />
-                        <x-text-input id="lastName" class="" type="text" name="lastName" :value="old('lastName')"
-                            required autofocus autocomplete="lastName" />
-                        <x-input-error :messages="$errors->get('lastName')" class="mt-2" />
+                        <x-input-label for="last_name" :value="__('Last Name')" />
+                        <x-text-input id="last_name" class="" type="text" name="last_name" :value="old('last_name')"
+                            required autofocus autocomplete="last_name" />
+                        <x-input-error :messages="$errors->get('last_name')" class="mt-2" />
                     </div>
                     <div class='mt-4'>
                         <x-input-label for="username" :value="__('Username')" />

@@ -23,16 +23,16 @@ class AuthenticationController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'firstName' => ['required', 'string', 'min:3', 'max:20'],
-            'lastName' => ['required', 'string', 'min:3', 'max:20'],
+            'first_name' => ['required', 'string', 'min:3', 'max:20'],
+            'last_name' => ['required', 'string', 'min:3', 'max:20'],
             'username' => ['required', 'alpha_num:ascii', 'min:3', 'max:20'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:20', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $user = User::create([
-            'firstName' => $request->firstName,
-            'lastName' => $request->lastName,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),

@@ -13,12 +13,22 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'firstName' => fake()->name(),
-            'lastName' => fake()->name(),
+            'first_name' => fake()->name(),
+            'last_name' => fake()->name(),
             'username' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'password' => static::$password ??= Hash::make('password'),
+            'mobile_number' => fake()->unique()->phoneNumber(),
+            'city' => fake()->city(),
+            'state' => fake()->state(),
+            'country' => fake()->country(),
+            'zip' => fake()->postcode(),
+            'addressline' => fake()->address(),
+            'desired_job_title' => fake()->randomElement(['Developer', 'Designer', 'QA', 'Project Manager', 'Sales', 'Marketing', 'Business Analyst', 'Accountant', 'Engineer', 'Writer', 'Teacher', 'Student', 'Consultant']),
+            'desired_job_type' => fake()->randomElement(['full-time', 'part-time', 'contract', 'internship', 'temporary']),
             'email_verified_at' => now(),
+            'profile_image' => null,
+            'background_image' => null,
             'remember_token' => Str::random(10),
         ];
     }
