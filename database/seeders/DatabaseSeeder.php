@@ -2,6 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Certificate;
+use App\Models\Language;
+use App\Models\Project;
+use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -13,5 +17,13 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::factory(10)->create();
+
+        Language::factory(40)->create();
+
+        Certificate::factory(40)->create();
+
+        Project::factory(40)->create();
+
+        Skill::factory(40)->create();
     }
 }

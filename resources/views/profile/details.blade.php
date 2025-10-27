@@ -31,10 +31,10 @@
                             @include('profile.partials.update-background-image-form')
                         </x-tabs.content>
                         <x-tabs.content tab="professional">
-                            <h2 class="text-xl font-semibold text-gray-800">Professional Summary</h2>
+                            @include('profile.partials.update-professional-summary-form')
                         </x-tabs.content>
                         <x-tabs.content tab="resume">
-                            <h2 class="text-xl font-semibold text-gray-800">Resume / CV</h2>
+                            @include('profile.partials.update-resume-form')
                         </x-tabs.content>
                         <x-tabs.content tab="experience">
                             <h2 class="text-xl font-semibold text-gray-800">Experience</h2>
@@ -43,19 +43,19 @@
                             <h2 class="text-xl font-semibold text-gray-800">Education</h2>
                         </x-tabs.content>
                         <x-tabs.content tab="skills">
-                            <h2 class="text-xl font-semibold text-gray-800">Skills</h2>
+                            @include('profile.partials.update-skills-form')
                         </x-tabs.content>
                         <x-tabs.content tab="projects">
-                            <h2 class="text-xl font-semibold text-gray-800">Projects</h2>
+                            @include('profile.partials.update-projects-form')
                         </x-tabs.content>
                         <x-tabs.content tab="certifications">
-                            <h2 class="text-xl font-semibold text-gray-800">Licenses & Certifications</h2>
+                            @include('profile.partials.update-certificates-form')
                         </x-tabs.content>
                         <x-tabs.content tab="languages">
-                            <h2 class="text-xl font-semibold text-gray-800">Languages</h2>
+                            @include('profile.partials.update-languages-form')
                         </x-tabs.content>
                         <x-tabs.content tab="links">
-                            <h2 class="text-xl font-semibold text-gray-800">Social Links</h2>
+                            @include('profile.partials.update-social-links-form')
                         </x-tabs.content>
                         <x-tabs.content tab="password">
                             @include('profile.partials.update-password-form')

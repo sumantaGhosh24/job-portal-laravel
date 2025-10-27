@@ -29,6 +29,12 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'profile_image' => null,
             'background_image' => null,
+            'headline' => null,
+            'professional_summary' => null,
+            'resume' => null,
+            'linkedin_url' => null,
+            'github_url' => null,
+            'website_url' => null,
             'remember_token' => Str::random(10),
         ];
     }

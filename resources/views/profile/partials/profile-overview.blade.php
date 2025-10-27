@@ -71,4 +71,70 @@
             </div>
         @endisset
     </div>
+
+    @if($user->headline)
+        <div class="flex flex-col">
+            <span class="text-sm font-medium text-gray-500">Headline</span>
+            <h2 class="text-lg font-semibold truncate">{{ $user->headline }}</h2>
+        </div>
+        <div class="flex flex-col">
+            <span class="text-sm font-medium text-gray-500">Summary</span>
+            <h2 class="text-lg font-semibold truncate">{{ $user->professional_summary }}</h2>
+        </div>
+    @endif
+
+    @if ($user->resume)
+        <div class="flex flex-col">
+            <span class="text-sm font-medium text-gray-500">Resume</span>
+            <h2 class="text-lg font-semibold truncate">
+                <a href="{{ asset('storage/' . $user->resume) }}" class="text-indigo-600 hover:text-indigo-500"
+                    target="_blank">
+                    Download
+                </a>
+            </h2>
+        </div>
+    @endif
+
+    @if ($user->linkedin_url)
+        <div class="flex flex-col">
+            <span class="text-sm font-medium text-gray-500">LinkedIn Profile URL</span>
+            <h2 class="text-lg font-semibold truncate">{{ $user->linkedin_url }}</h2>
+        </div>
+        <div class="flex flex-col">
+            <span class="text-sm font-medium text-gray-500">Github Profile URL</span>
+            <h2 class="text-lg font-semibold truncate">{{ $user->github_url }}</h2>
+        </div>
+        <div class="flex flex-col">
+            <span class="text-sm font-medium text-gray-500">Personal Website URL</span>
+            <h2 class="text-lg font-semibold truncate">{{ $user->website_url }}</h2>
+        </div>
+    @endif
+
+    @forelse ($user->languages as $language)
+        <li>{{ $language->name }} - {{ $language->proficiency }}</li>
+    @empty
+        <p>No languages</p>
+    @endforelse
+
+    @forelse ($user->certificates as $certificate)
+        <li>{{ $certificate->name }} - {{ $certificate->issuing_organization }} - {{ $certificate->issue_date }}</li>
+    @empty
+        <p>No certificates</p>
+    @endforelse
+
+    @forelse ($user->projects as $project)
+        <div>
+            <li>{{ $project->title }}</li>
+            <li>{{ $project->description }}</li>
+            <li>{{ $project->github_url }}</li>
+        </div>
+    @empty
+        <p>No projects</p>
+    @endforelse
+
+    @forelse ($user->skills as $skill)
+        <li>{{ $skill->name }} - {{ $skill->proficiency }}</li>
+    @empty
+        <p>No skills</p>
+    @endforelse
 </section>

@@ -26,6 +26,12 @@ return new class extends Migration
             $table->string('desired_job_type')->nullable();
             $table->string('profile_image')->nullable();
             $table->string('background_image')->nullable();
+            $table->string('headline')->nullable();
+            $table->string('professional_summary')->nullable();
+            $table->string('resume')->nullable();
+            $table->string('linkedin_url')->nullable();
+            $table->string('github_url')->nullable();
+            $table->string('website_url')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
