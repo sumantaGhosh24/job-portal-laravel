@@ -70,7 +70,7 @@
     <div class="mt-6">
         <h2 class="text-2xl font-semibold mb-4">{{ __('Delete Languages') }}</h2>
         @forelse ($user->languages as $language)
-            <form method="post" action="{{ route('profile.language.remove', ['id' => $language->id]) }}" class='flex items-center justify-between gap-3 border border-blue-500 px-1 py-1.5 rounded-md mb-3'>
+            <form method="post" action="{{ route('profile.language.destroy', ['id' => $language->id]) }}" class='flex items-center justify-between gap-3 border border-blue-500 px-1 py-1.5 rounded-md mb-3'>
                 @csrf
                 @method('delete')
                 

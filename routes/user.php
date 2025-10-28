@@ -1,63 +1,83 @@
 <?php
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Profile\CertificateController;
+use App\Http\Controllers\Profile\EducationController;
+use App\Http\Controllers\Profile\ExperienceController;
+use App\Http\Controllers\Profile\LanguageController;
+use App\Http\Controllers\Profile\ProfileController;
+use App\Http\Controllers\Profile\ProjectController;
+use App\Http\Controllers\Profile\SkillController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
-    Route::get('/home', [ProfileController::class, 'index'])->middleware(['verified'])->name('home');
-
     Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile');
 
-    Route::patch('/profile/personal', [ProfileController::class, 'personal'])->name('profile.update.personal');
+    Route::get('/logout', [ProfileController::class, 'logout'])->name('logout');
+});
 
-    Route::patch('/profile/profile_image', [ProfileController::class, 'profile_image'])->name('profile.update.profile_image');
+Route::middleware('auth')->prefix('profile')->name('profile.')->group(function () {
+    Route::name('update.')->group(function () {
+        Route::patch('/personal', [ProfileController::class, 'personal'])->name('personal');
+    
+        Route::patch('/profile_image', [ProfileController::class, 'profile_image'])->name('profile_image');
+    
+        Route::patch('/background_image', [ProfileController::class, 'background_image'])->name('background_image');
+    
+        Route::patch('/password', [ProfileController::class, 'password'])->name('password');
+    
+        Route::patch('/professional', [ProfileController::class, 'professional_summary'])->name('professional');
+    
+        Route::patch('/resume', [ProfileController::class, 'resume'])->name('resume');
+    
+        Route::patch('/social', [ProfileController::class, 'social'])->name('social');
+    });
 
-    Route::patch('/profile/background_image', [ProfileController::class, 'background_image'])->name('profile.update.background_image');
+    Route::prefix('language')->name('language.')->group(function () {
+        Route::post('/', [LanguageController::class, 'add'])->name('add');
+    
+        Route::patch('/{id}', [LanguageController::class, 'update'])->name('update');
+    
+        Route::delete('/{id}', [LanguageController::class, 'destroy'])->name('destroy');
+    });
 
-    Route::patch('/profile/password', [ProfileController::class, 'password'])->name('profile.update.password');
+    Route::prefix('certificate')->name('certificate.')->group(function () {
+        Route::post('/', [CertificateController::class, 'add'])->name('add');
+    
+        Route::patch('/{id}', [CertificateController::class, 'update'])->name('update');
+    
+        Route::delete('/{id}', [CertificateController::class, 'destroy'])->name('destroy');
+    });
 
-    Route::patch('/profile/professional', [ProfileController::class, 'professional_summary'])->name('profile.update.professional');
+    Route::prefix('project')->name('project.')->group(function () {
+        Route::post('/', [ProjectController::class, 'add'])->name('add');
+    
+        Route::patch('/{id}', [ProjectController::class, 'update'])->name('update');
+    
+        Route::delete('/{id}', [ProjectController::class, 'destroy'])->name('destroy');
+    });
 
-    Route::patch('/profile/resume', [ProfileController::class, 'resume'])->name('profile.update.resume');
+    Route::prefix('skill')->name('skill.')->group(function () {
+        Route::post('/', [SkillController::class, 'add'])->name('add');
+    
+        Route::patch('/{id}', [SkillController::class, 'update'])->name('update');
+    
+        Route::delete('/{id}', [SkillController::class, 'destroy'])->name('destroy');
+    });
 
-    Route::patch('/profile/social', [ProfileController::class, 'social'])->name('profile.update.social');
+    Route::prefix('education')->name('education.')->group(function () {
+        Route::post('/', [EducationController::class, 'add'])->name('add');
+    
+        Route::patch('/{id}', [EducationController::class, 'update'])->name('update');
+    
+        Route::delete('/{id}', [EducationController::class, 'destroy'])->name('destroy');
+    });
 
-    Route::post('/profile/language', [ProfileController::class, 'add_language'])->name('profile.language.add');
+    Route::prefix('experience')->name('experience.')->group(function () {
+        Route::post('/', [ExperienceController::class, 'add'])->name('add');
+    
+        Route::patch('/{id}', [ExperienceController::class, 'update'])->name('update');
+    
+        Route::delete('/{id}', [ExperienceController::class, 'destroy'])->name('destroy');
+    });
 
-    Route::patch('/profile/language/{id}', [ProfileController::class, 'update_language'])->name('profile.language.update');
-
-    Route::delete('/profile/language/{id}', [ProfileController::class, 'remove_language'])->name('profile.language.remove');
-
-    Route::post('/profile/certificate', [ProfileController::class, 'add_certificate'])->name('profile.certificate.add');
-
-    Route::patch('/profile/certificate/{id}', [ProfileController::class, 'update_certificate'])->name('profile.certificate.update');
-
-    Route::delete('/profile/certificate/{id}', [ProfileController::class, 'remove_certificate'])->name('profile.certificate.remove');
-
-    Route::post('/profile/project', [ProfileController::class, 'add_project'])->name('profile.project.add');
-
-    Route::patch('/profile/project/{id}', [ProfileController::class, 'update_project'])->name('profile.project.update');
-
-    Route::delete('/profile/project/{id}', [ProfileController::class, 'remove_project'])->name('profile.project.remove');
-
-    Route::post('/profile/skill', [ProfileController::class, 'add_skill'])->name('profile.skill.add');
-
-    Route::patch('/profile/skill/{id}', [ProfileController::class, 'update_skill'])->name('profile.skill.update');
-
-    Route::delete('/profile/skill/{id}', [ProfileController::class, 'remove_skill'])->name('profile.skill.remove');
-
-    Route::post('/profile/education', [ProfileController::class, 'add_education'])->name('profile.education.add');
-
-    Route::patch('/profile/education/{id}', [ProfileController::class, 'update_education'])->name('profile.education.update');
-
-    Route::delete('/profile/education/{id}', [ProfileController::class, 'remove_education'])->name('profile.education.remove');
-
-    Route::post('/profile/experience', [ProfileController::class, 'add_experience'])->name('profile.experience.add');
-
-    Route::patch('/profile/experience/{id}', [ProfileController::class, 'update_experience'])->name('profile.experience.update');
-
-    Route::delete('/profile/experience/{id}', [ProfileController::class, 'remove_experience'])->name('profile.experience.remove');
-
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    Route::get('logout', [ProfileController::class, 'logout'])->name('logout');
+    Route::delete('/', [ProfileController::class, 'destroy'])->name('destroy');
 });

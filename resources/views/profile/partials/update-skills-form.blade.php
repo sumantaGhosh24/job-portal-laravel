@@ -68,7 +68,7 @@
     <div class="mt-6">
         <h2 class="text-2xl font-semibold mb-4">{{ __('Delete Skills') }}</h2>
         @forelse ($user->skills as $skill)
-            <form method="post" action="{{ route('profile.skill.remove', ['id' => $skill->id]) }}" class='flex items-center justify-between gap-3 border border-blue-500 px-1 py-1.5 rounded-md mb-3'>
+            <form method="post" action="{{ route('profile.skill.destroy', ['id' => $skill->id]) }}" class='flex items-center justify-between gap-3 border border-blue-500 px-1 py-1.5 rounded-md mb-3'>
                 @csrf
                 @method('delete')
                 

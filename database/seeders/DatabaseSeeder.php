@@ -18,17 +18,17 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-        User::factory(10)->create();
+        // User::factory(10)->create();
 
-        Language::factory(40)->create();
+        // Language::factory(40)->create();
 
-        Certificate::factory(40)->create();
+        // Certificate::factory(40)->create();
 
-        Project::factory(40)->create();
+        // Project::factory(40)->create();
 
-        Skill::factory(40)->create();
+        // Skill::factory(40)->create();
 
-        Education::factory(40)->create();
+        // Education::factory(40)->create();
 
         Experience::factory(40)->create();
     }

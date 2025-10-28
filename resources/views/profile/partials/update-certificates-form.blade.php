@@ -68,7 +68,7 @@
     <div class="mt-6">
         <h2 class="text-2xl font-semibold mb-4">{{ __('Delete Certificates') }}</h2>
         @forelse ($user->certificates as $certificate)
-            <form method="post" action="{{ route('profile.certificate.remove', ['id' => $certificate->id]) }}" class='flex items-center justify-between gap-3 border border-blue-500 px-1 py-1.5 rounded-md mb-3'>
+            <form method="post" action="{{ route('profile.certificate.destroy', ['id' => $certificate->id]) }}" class='flex items-center justify-between gap-3 border border-blue-500 px-1 py-1.5 rounded-md mb-3'>
                 @csrf
                 @method('delete')
                 

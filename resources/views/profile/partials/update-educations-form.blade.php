@@ -96,7 +96,7 @@
     <div class="mt-6">
         <h2 class="text-2xl font-semibold mb-4">{{ __('Delete Educations') }}</h2>
         @forelse ($user->educations as $education)
-            <form method="post" action="{{ route('profile.education.remove', ['id' => $education->id]) }}" class='flex items-center justify-between gap-3 border border-blue-500 px-1 py-1.5 rounded-md mb-3'>
+            <form method="post" action="{{ route('profile.education.destroy', ['id' => $education->id]) }}" class='flex items-center justify-between gap-3 border border-blue-500 px-1 py-1.5 rounded-md mb-3'>
                 @csrf
                 @method('delete')
                 

@@ -15,7 +15,7 @@
                     class="w-28 h-28 sm:w-32 sm:h-32 rounded-full border-4 border-white shadow-lg object-cover bg-white" />
             @else
                 <div
-                    class="w-28 h-28 sm:w-32 sm:h-32 rounded-full border-4 border-white shadow-lg flex items-center justify-center bg-indigo-600 text-white text-3xl font-bold">
+                    class="w-28 h-28 sm:w-32 sm:h-32 rounded-full border-4 border-white shadow-lg flex items-center justify-center bg-indigo-600 text-white text-3xl font-bold uppercase">
                     {{ substr($user->first_name ?? 'U', 0, 1) }}{{ substr($user->last_name ?? 'N', 0, 1) }}
                 </div>
             @endisset

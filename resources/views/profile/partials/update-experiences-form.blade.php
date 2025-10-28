@@ -99,7 +99,7 @@
     <div class="mt-6">
         <h2 class="text-2xl font-semibold mb-4">{{ __('Delete Experiences') }}</h2>
         @forelse ($user->experiences as $experience)
-            <form method="post" action="{{ route('profile.experience.remove', ['id' => $experience->id]) }}"
+            <form method="post" action="{{ route('profile.experience.destroy', ['id' => $experience->id]) }}"
                 class='flex items-center justify-between gap-3 border border-blue-500 px-1 py-1.5 rounded-md mb-3'>
                 @csrf
                 @method('delete')
