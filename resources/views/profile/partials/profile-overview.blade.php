@@ -1,140 +1,201 @@
 <section class="max-w-4xl mx-auto">
     <div class="relative">
-        <div class="h-32 bg-gray-200 rounded-t-xl overflow-hidden">
+        <div class="h-40 bg-gray-200">
             @isset($user->background_image)
                 <img src="{{ asset('storage/' . $user->background_image) }}" alt="background_image"
                     class="w-full h-full object-cover" />
             @else
-                <div class="w-full h-full bg-indigo-500/70"></div>
+                <div class="w-full h-full bg-gradient-to-r from-indigo-500 to-indigo-700"></div>
             @endisset
         </div>
-        <div class="flex flex-col items-center sm:items-start -mt-16 px-6 pb-4">
+
+        <div class="absolute left-1/2 sm:left-12 -bottom-14 transform -translate-x-1/2 sm:translate-x-0">
             @isset($user->profile_image)
                 <img src="{{ asset('storage/' . $user->profile_image) }}" alt="profile_image"
-                    class="w-24 h-24 sm:w-32 sm:h-32 rounded-full border-4 border-white shadow-lg object-cover bg-white" />
+                    class="w-28 h-28 sm:w-32 sm:h-32 rounded-full border-4 border-white shadow-lg object-cover bg-white" />
             @else
                 <div
-                    class="w-24 h-24 sm:w-32 sm:h-32 rounded-full border-4 border-white shadow-lg flex items-center justify-center bg-indigo-500 text-white text-3xl font-bold">
+                    class="w-28 h-28 sm:w-32 sm:h-32 rounded-full border-4 border-white shadow-lg flex items-center justify-center bg-indigo-600 text-white text-3xl font-bold">
                     {{ substr($user->first_name ?? 'U', 0, 1) }}{{ substr($user->last_name ?? 'N', 0, 1) }}
-                </div>
-            @endisset
-            <h1 class="text-3xl font-bold mt-4 text-gray-900">
-                {{ $user->first_name }} {{ $user->last_name }}
-            </h1>
-            <p class="text-lg text-indigo-600">
-                @<span class="font-medium">{{ $user->username }}</span>
-            </p>
-            @isset($user->desired_job_title)
-                <div class="mt-2 text-center sm:text-left">
-                    <p class="text-xl font-semibold text-gray-800">
-                        {{ $user->desired_job_title }}
-                    </p>
-                    <span class="inline-block px-3 py-1 text-sm font-semibold bg-indigo-100 text-indigo-800 rounded-full">
-                        {{ $user->desired_job_type }}
-                    </span>
                 </div>
             @endisset
         </div>
     </div>
+
+    <div class="pt-20 px-6 text-center sm:text-left">
+        <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">
+            {{ $user->first_name }} {{ $user->last_name }}
+        </h1>
+        <p class="text-indigo-600 font-medium">@ {{ $user->username }}</p>
+
+        @isset($user->desired_job_title)
+            <div class="mt-2">
+                <p class="text-lg font-semibold text-gray-800">{{ $user->desired_job_title }}</p>
+                <span class="inline-block px-3 py-1 mt-1 text-sm font-semibold bg-indigo-100 text-indigo-700 rounded-full">
+                    {{ $user->desired_job_type }}
+                </span>
+            </div>
+        @endisset
+    </div>
+
     <hr class="my-6 border-gray-200">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-4 px-6 text-gray-700">
-        <div class="flex flex-col">
-            <span class="text-sm font-medium text-gray-500">Email Address</span>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6 px-6 pb-6 text-gray-700">
+        <div>
+            <p class="text-sm text-gray-500 font-medium">Email Address</p>
             <h2 class="text-lg font-semibold truncate">{{ $user->email }}</h2>
         </div>
-        <div class="flex flex-col">
-            <span class="text-sm font-medium text-gray-500">Member Since</span>
+        <div>
+            <p class="text-sm text-gray-500 font-medium">Member Since</p>
             <h2 class="text-lg font-semibold">
                 {{ \Carbon\Carbon::parse($user->created_at)->format('M d, Y') }}
             </h2>
         </div>
+
         @isset($user->mobile_number)
-            <div class="flex flex-col">
-                <span class="text-sm font-medium text-gray-500">Mobile Number</span>
+            <div>
+                <p class="text-sm text-gray-500 font-medium">Mobile Number</p>
                 <h2 class="text-lg font-semibold">{{ $user->mobile_number }}</h2>
             </div>
-            <div class="flex flex-col">
-                <span class="text-sm font-medium text-gray-500">User ID</span>
+            <div>
+                <p class="text-sm text-gray-500 font-medium">User ID</p>
                 <h2 class="text-lg font-semibold">{{ $user->id }}</h2>
             </div>
-            <div class="md:col-span-2 flex flex-col pt-2">
-                <span class="text-sm font-medium text-gray-500">Address</span>
-                <h2 class="text-lg font-semibold">
-                    {{ $user->addressline ?? 'N/A' }}
-                </h2>
-                <h2 class="text-lg font-semibold mt-1">
-                    {{ $user->city ?? '' }}{{ $user->city && $user->state ? ', ' : '' }}{{ $user->state ?? '' }}{{ ($user->city || $user->state) && $user->zip ? ' ' : '' }}{{ $user->zip ?? '' }}
-                </h2>
-                <h2 class="text-lg font-semibold mt-1 text-gray-600">
-                    {{ $user->country ?? 'N/A' }}
-                </h2>
+
+            <div class="md:col-span-2">
+                <p class="text-sm text-gray-500 font-medium">Address</p>
+                <div class="mt-1 space-y-1">
+                    <p class="text-lg font-semibold">{{ $user->addressline ?? 'N/A' }}</p>
+                    <p class="text-lg font-semibold text-gray-600">
+                        {{ $user->city ?? '' }}{{ $user->city && $user->state ? ', ' : '' }}{{ $user->state ?? '' }}
+                        {{ ($user->city || $user->state) && $user->zip ? ' ' : '' }}{{ $user->zip ?? '' }}
+                    </p>
+                    <p class="text-lg font-semibold text-gray-500">{{ $user->country ?? 'N/A' }}</p>
+                </div>
             </div>
         @endisset
     </div>
 
     @if($user->headline)
-        <div class="flex flex-col">
-            <span class="text-sm font-medium text-gray-500">Headline</span>
-            <h2 class="text-lg font-semibold truncate">{{ $user->headline }}</h2>
-        </div>
-        <div class="flex flex-col">
-            <span class="text-sm font-medium text-gray-500">Summary</span>
-            <h2 class="text-lg font-semibold truncate">{{ $user->professional_summary }}</h2>
+        <div class="px-6 py-4 border-t border-gray-100 bg-gray-50">
+            <h3 class="text-lg font-semibold text-gray-800 mb-1">Headline</h3>
+            <p class="text-gray-700 mb-3">{{ $user->headline }}</p>
+
+            <h3 class="text-lg font-semibold text-gray-800 mb-1">Professional Summary</h3>
+            <p class="text-gray-700">{{ $user->professional_summary }}</p>
         </div>
     @endif
 
     @if ($user->resume)
-        <div class="flex flex-col">
-            <span class="text-sm font-medium text-gray-500">Resume</span>
-            <h2 class="text-lg font-semibold truncate">
-                <a href="{{ asset('storage/' . $user->resume) }}" class="text-indigo-600 hover:text-indigo-500"
-                    target="_blank">
-                    Download
-                </a>
-            </h2>
+        <div class="px-6 py-4 border-t border-gray-100">
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">Resume</h3>
+            <a href="{{ asset('storage/' . $user->resume) }}" target="_blank"
+                class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-md shadow hover:bg-indigo-700 transition-all">
+                Download Resume
+            </a>
         </div>
     @endif
 
-    @if ($user->linkedin_url)
-        <div class="flex flex-col">
-            <span class="text-sm font-medium text-gray-500">LinkedIn Profile URL</span>
-            <h2 class="text-lg font-semibold truncate">{{ $user->linkedin_url }}</h2>
-        </div>
-        <div class="flex flex-col">
-            <span class="text-sm font-medium text-gray-500">Github Profile URL</span>
-            <h2 class="text-lg font-semibold truncate">{{ $user->github_url }}</h2>
-        </div>
-        <div class="flex flex-col">
-            <span class="text-sm font-medium text-gray-500">Personal Website URL</span>
-            <h2 class="text-lg font-semibold truncate">{{ $user->website_url }}</h2>
+    @if ($user->linkedin_url || $user->github_url || $user->website_url)
+        <div class="px-6 py-4 border-t border-gray-100 bg-gray-50">
+            <h3 class="text-lg font-semibold text-gray-800 mb-3">Social Profiles</h3>
+            <div class="flex flex-col space-y-2">
+                @if ($user->linkedin_url)
+                    <a href="{{ $user->linkedin_url }}" target="_blank" class="text-indigo-600 hover:underline">LinkedIn</a>
+                @endif
+                @if ($user->github_url)
+                    <a href="{{ $user->github_url }}" target="_blank" class="text-indigo-600 hover:underline">GitHub</a>
+                @endif
+                @if ($user->website_url)
+                    <a href="{{ $user->website_url }}" target="_blank" class="text-indigo-600 hover:underline">Personal
+                        Website</a>
+                @endif
+            </div>
         </div>
     @endif
 
-    @forelse ($user->languages as $language)
-        <li>{{ $language->name }} - {{ $language->proficiency }}</li>
-    @empty
-        <p>No languages</p>
-    @endforelse
+    <div class="px-6 py-4 border-t border-gray-100">
+        <h3 class="text-lg font-semibold text-gray-800 mb-3">Languages</h3>
+        <ul class="list-disc pl-5 space-y-1 text-gray-700">
+            @forelse ($user->languages as $language)
+                <li>{{ $language->name }} - {{ $language->proficiency }}</li>
+            @empty
+                <p class="text-gray-500 italic">No languages listed</p>
+            @endforelse
+        </ul>
+    </div>
 
-    @forelse ($user->certificates as $certificate)
-        <li>{{ $certificate->name }} - {{ $certificate->issuing_organization }} - {{ $certificate->issue_date }}</li>
-    @empty
-        <p>No certificates</p>
-    @endforelse
+    <div class="px-6 py-4 border-t border-gray-100 bg-gray-50">
+        <h3 class="text-lg font-semibold text-gray-800 mb-3">Certificates</h3>
+        <ul class="list-disc pl-5 space-y-1 text-gray-700">
+            @forelse ($user->certificates as $certificate)
+                <li>
+                    {{ $certificate->name }} — {{ $certificate->issuing_organization }}
+                    ({{ $certificate->issue_date }})
+                </li>
+            @empty
+                <p class="text-gray-500 italic">No certificates</p>
+            @endforelse
+        </ul>
+    </div>
 
-    @forelse ($user->projects as $project)
-        <div>
-            <li>{{ $project->title }}</li>
-            <li>{{ $project->description }}</li>
-            <li>{{ $project->github_url }}</li>
+    <div class="px-6 py-4 border-t border-gray-100">
+        <h3 class="text-lg font-semibold text-gray-800 mb-3">Projects</h3>
+        <div class="grid gap-3">
+            @forelse ($user->projects as $project)
+                <div class="p-3 border rounded-lg hover:shadow-sm transition-all">
+                    <h4 class="text-lg font-semibold text-gray-900">{{ $project->title }}</h4>
+                    <p class="text-gray-700">{{ $project->description }}</p>
+                    @if ($project->github_url)
+                        <a href="{{ $project->github_url }}" target="_blank" class="text-indigo-600 hover:underline text-sm">
+                            View on GitHub
+                        </a>
+                    @endif
+                </div>
+            @empty
+                <p class="text-gray-500 italic">No projects</p>
+            @endforelse
         </div>
-    @empty
-        <p>No projects</p>
-    @endforelse
+    </div>
 
-    @forelse ($user->skills as $skill)
-        <li>{{ $skill->name }} - {{ $skill->proficiency }}</li>
-    @empty
-        <p>No skills</p>
-    @endforelse
+    <div class="px-6 py-4 border-t border-gray-100 bg-gray-50">
+        <h3 class="text-lg font-semibold text-gray-800 mb-3">Skills</h3>
+        <div class="flex flex-wrap gap-2">
+            @forelse ($user->skills as $skill)
+                <span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm font-medium">
+                    {{ $skill->name }} - {{ $skill->proficiency }}
+                </span>
+            @empty
+                <p class="text-gray-500 italic">No skills</p>
+            @endforelse
+        </div>
+    </div>
+
+    <div class="px-6 py-4 border-t border-gray-100">
+        <h3 class="text-lg font-semibold text-gray-800 mb-3">Education</h3>
+        <ul class="list-disc pl-5 space-y-1 text-gray-700">
+            @forelse ($user->educations as $education)
+                <li>
+                    {{ $education->degree }} in {{ $education->field_of_study }} —
+                    {{ $education->institution_name }} ({{ $education->location }}, {{ $education->graduation_date }})
+                </li>
+            @empty
+                <p class="text-gray-500 italic">No education details</p>
+            @endforelse
+        </ul>
+    </div>
+
+    <div class="px-6 py-4 border-t border-gray-100 bg-gray-50 rounded-b-xl">
+        <h3 class="text-lg font-semibold text-gray-800 mb-3">Experience</h3>
+        <ul class="list-disc pl-5 space-y-1 text-gray-700">
+            @forelse ($user->experiences as $experience)
+                <li>
+                    {{ $experience->job_title }} — {{ $experience->company_name }} ({{ $experience->location }})
+                    [{{ $experience->start_date }} - {{ $experience->end_date ?? 'Present' }}]
+                </li>
+            @empty
+                <p class="text-gray-500 italic">No experiences</p>
+            @endforelse
+        </ul>
+    </div>
 </section>

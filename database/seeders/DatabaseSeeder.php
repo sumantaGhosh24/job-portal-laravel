@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Certificate;
+use App\Models\Education;
+use App\Models\Experience;
 use App\Models\Language;
 use App\Models\Project;
 use App\Models\Skill;
@@ -25,5 +27,9 @@ class DatabaseSeeder extends Seeder
         Project::factory(40)->create();
 
         Skill::factory(40)->create();
+
+        Education::factory(40)->create();
+
+        Experience::factory(40)->create();
     }
 }

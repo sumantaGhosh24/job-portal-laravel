@@ -63,3 +63,7 @@
 [x-cloak] {
     display: none !important;
 }
+
+li {
+    list-style-type: none;
+}

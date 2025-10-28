@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Certificate;
+use App\Models\Education;
+use App\Models\Experience;
 use App\Models\Language;
 use App\Models\Project;
 use App\Models\Skill;
@@ -306,6 +308,82 @@ class ProfileController extends Controller
         return redirect()->route('profile', ['id' => $request->user()->id])->with('message', 'Skill deleted successfully!');
     }
 
+    public function add_education(Request $request): RedirectResponse {
+        $request->validate([
+            'degree' => ['required', 'string', 'min:3', 'max:50'],
+            'field_of_study' => ['required', 'string', 'min:3', 'max:50'],
+            'institution_name' => ['required', 'string', 'min:3', 'max:150'],
+            'location' => ['required', 'string', 'min:3', 'max:100'],
+            'graduation_date' => ['required', 'date'],
+        ]);
+
+        Education::create(['degree' => $request->degree, 'field_of_study' => $request->field_of_study, 'institution_name' => $request->institution_name, 'location' => $request->location, 'graduation_date' => $request->graduation_date, 'user_id' => $request->user()->id]);
+
+        return redirect()->route('profile', ['id' => $request->user()->id])->with('message', 'Education added successfully!');
+    }
+
+    public function update_education(Request $request, string $id): RedirectResponse {
+        $request->validate([
+            'degree' => ['required', 'string', 'min:3', 'max:50'],
+            'field_of_study' => ['required', 'string', 'min:3', 'max:50'],
+            'institution_name' => ['required', 'string', 'min:3', 'max:150'],
+            'location' => ['required', 'string', 'min:3', 'max:100'],
+            'graduation_date' => ['required', 'date'],
+        ]);
+
+        $education = Education::find($id);
+
+        $education->update(['degree' => $request->degree, 'field_of_study' => $request->field_of_study, 'institution_name' => $request->institution_name, 'location' => $request->location, 'graduation_date' => $request->graduation_date]);
+
+        return redirect()->route('profile', ['id' => $request->user()->id])->with('message', 'Education updated successfully!');
+    }
+
+    public function remove_education(Request $request, string $id): RedirectResponse {
+        $education = Education::find($id);
+
+        $education->delete();
+
+        return redirect()->route('profile', ['id' => $request->user()->id])->with('message', 'Education deleted successfully!');
+    }
+
+    public function add_experience(Request $request): RedirectResponse {
+        $request->validate([
+            'job_title' => ['required', 'string', 'min:3', 'max:100'],
+            'company_name' => ['required', 'string', 'min:3', 'max:100'],
+            'location' => ['required', 'string', 'min:3', 'max:100'],
+            'start_date' => ['required', 'date'],
+            'end_date' => ['required', 'date'],
+        ]);
+
+        Experience::create(['job_title' => $request->job_title, 'company_name' => $request->company_name, 'location' => $request->location, 'start_date' => $request->start_date, 'end_date' => $request->end_date, 'user_id' => $request->user()->id]);
+
+        return redirect()->route('profile', ['id' => $request->user()->id])->with('message', 'Experience added successfully!');
+    }
+
+    public function update_experience(Request $request, string $id): RedirectResponse {
+        $request->validate([
+            'job_title' => ['required', 'string', 'min:3', 'max:100'],
+            'company_name' => ['required', 'string', 'min:3', 'max:100'],
+            'location' => ['required', 'string', 'min:3', 'max:100'],
+            'start_date' => ['required', 'date'],
+            'end_date' => ['required', 'date'],
+        ]);
+
+        $experience = Experience::find($id);
+
+        $experience->update(['job_title' => $request->job_title, 'company_name' => $request->company_name, 'location' => $request->location, 'start_date' => $request->start_date, 'end_date' => $request->end_date]);
+
+        return redirect()->route('profile', ['id' => $request->user()->id])->with('message', 'Experience updated successfully!');
+    }
+
+    public function remove_experience(Request $request, string $id): RedirectResponse {
+        $experience = Experience::find($id);
+
+        $experience->delete();
+
+        return redirect()->route('profile', ['id' => $request->user()->id])->with('message', 'Experience deleted successfully!');
+    }
+
     public function destroy(Request $request): RedirectResponse
     {
         if (isset($request->user()->profile_image)) {
@@ -326,6 +404,8 @@ class ProfileController extends Controller
         $user->certificates()->delete();
         $user->projects()->delete();
         $user->skills()->delete();
+        $user->educations()->delete();
+        $user->experiences()->delete();
 
         Auth::logout();
 

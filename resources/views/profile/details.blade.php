@@ -37,10 +37,10 @@
                             @include('profile.partials.update-resume-form')
                         </x-tabs.content>
                         <x-tabs.content tab="experience">
-                            <h2 class="text-xl font-semibold text-gray-800">Experience</h2>
+                            @include('profile.partials.update-experiences-form')
                         </x-tabs.content>
                         <x-tabs.content tab="education">
-                            <h2 class="text-xl font-semibold text-gray-800">Education</h2>
+                            @include('profile.partials.update-educations-form')
                         </x-tabs.content>
                         <x-tabs.content tab="skills">
                             @include('profile.partials.update-skills-form')

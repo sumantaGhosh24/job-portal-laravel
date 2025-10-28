@@ -45,6 +45,18 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('/profile/skill/{id}', [ProfileController::class, 'remove_skill'])->name('profile.skill.remove');
 
+    Route::post('/profile/education', [ProfileController::class, 'add_education'])->name('profile.education.add');
+
+    Route::patch('/profile/education/{id}', [ProfileController::class, 'update_education'])->name('profile.education.update');
+
+    Route::delete('/profile/education/{id}', [ProfileController::class, 'remove_education'])->name('profile.education.remove');
+
+    Route::post('/profile/experience', [ProfileController::class, 'add_experience'])->name('profile.experience.add');
+
+    Route::patch('/profile/experience/{id}', [ProfileController::class, 'update_experience'])->name('profile.experience.update');
+
+    Route::delete('/profile/experience/{id}', [ProfileController::class, 'remove_experience'])->name('profile.experience.remove');
+
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('logout', [ProfileController::class, 'logout'])->name('logout');
