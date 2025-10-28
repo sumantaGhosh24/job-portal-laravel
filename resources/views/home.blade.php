@@ -13,10 +13,25 @@
             </div>
         @endif
 
-        <div class='flex items-center justify-center h-screen'>
-            <div class='h-[500px] w-[60%] gap-5 shadow-md rounded-md shadow-black text-center'>
-                <h1 class='text-4xl font-bold capitalize mt-36'>Welcome to job search portal</h1>
-                <p class='text-xl my-20'>This website still in development phase, stay tuned for future updates</p>
+        <div class="max-w-2xl mx-auto mt-10 bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-bold mb-4">Suggested Users to Follow</h2>
+            <div class="space-y-4">
+                @forelse ($suggested as $user)
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div>
+                            <h3 class="font-semibold text-gray-800">{{ $user->first_name }} {{ $user->last_name }}</h3>
+                            <p class="text-sm text-gray-500">{{ '@' . Str::slug($user->username) }}</p>
+                        </div>
+
+                        <form action="{{ route('users.follow', $user) }}" method="POST">
+                            @csrf
+
+                            <x-primary-button>{{ __('Follow') }}</x-primary-button>
+                        </form>
+                    </div>
+                @empty
+                    <p class="text-gray-500">No new users to follow right now.</p>
+                @endforelse
             </div>
         </div>
 </x-app-layout>

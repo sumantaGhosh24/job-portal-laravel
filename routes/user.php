@@ -2,6 +2,7 @@
 use App\Http\Controllers\Profile\CertificateController;
 use App\Http\Controllers\Profile\EducationController;
 use App\Http\Controllers\Profile\ExperienceController;
+use App\Http\Controllers\Profile\FollowController;
 use App\Http\Controllers\Profile\LanguageController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Profile\ProjectController;
@@ -12,6 +13,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile');
 
     Route::get('/logout', [ProfileController::class, 'logout'])->name('logout');
+
+    Route::post('/users/{user}/follow', [FollowController::class, 'follow'])->name('users.follow');
+
+    Route::delete('/users/{user}/unfollow', [FollowController::class, 'unfollow'])->name('users.unfollow');
 });
 
 Route::middleware('auth')->prefix('profile')->name('profile.')->group(function () {
