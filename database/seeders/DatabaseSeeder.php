@@ -6,6 +6,7 @@ use App\Models\Certificate;
 use App\Models\Education;
 use App\Models\Experience;
 use App\Models\Language;
+use App\Models\Post;
 use App\Models\Project;
 use App\Models\Skill;
 use App\Models\User;
@@ -30,6 +31,8 @@ class DatabaseSeeder extends Seeder
 
         // Education::factory(40)->create();
 
-        Experience::factory(40)->create();
+        // Experience::factory(40)->create();
+
+        // Post::factory(25)->create();
     }
 }

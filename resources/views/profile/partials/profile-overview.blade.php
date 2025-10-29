@@ -257,4 +257,50 @@
             @endforelse
         </ul>
     </div>
+
+    <div class="mt-10 border-t pt-6">
+        <h3 class="text-xl font-semibold mb-4">Posts by {{ $user->name }}</h3>
+
+        @forelse($user->posts()->paginate(5) as $post)
+            <div class="bg-white p-5 rounded-lg shadow">
+                <div class="flex justify-between items-center mb-3">
+                    <div>
+                        <h3 class="font-bold text-gray-800 capitalize">{{ $post->user->first_name }}
+                            {{ $post->user->last_name }}
+                        </h3>
+                        <p class="text-sm text-gray-500">{{ $post->created_at->diffForHumans() }}</p>
+                    </div>
+                    <div class="flex gap-2 items-center">
+                        <a href="{{ route('posts.show', ['id' => $post->id]) }}">
+                            <x-primary-button class="ms-4 max-w-fit">
+                                {{ __('View') }}
+                            </x-primary-button>
+                        </a>
+                        @if (auth()->id() === $post->user_id)
+                            <a href="{{ route('posts.edit', ['id' => $post->id]) }}">
+                                <x-primary-button class="ms-4 max-w-fit">
+                                    {{ __('Update') }}
+                                </x-primary-button>
+                            </a>
+                            <form action="{{ route('posts.destroy', ['id' => $post->id]) }}" method="POST">
+                                @csrf
+                                @method('delete')
+
+                                <x-danger-button class="ms-4 max-w-fit">
+                                    {{ __('Delete') }}
+                                </x-danger-button>
+                            </form>
+                        @endif
+                    </div>
+                </div>
+                <p class="mt-3 text-xl font-bold capitalize">{{ $post->title }}</p>
+                <p class="mt-3 text-base text-gray-700 capitalize">{{ $post->description }}</p>
+            </div>
+        @empty
+            <p class="text-gray-500">No posts yet.</p>
+        @endforelse
+        <div class="mt-4">
+            {{ $user->posts()->paginate(5)->links() }}
+        </div>
+    </div>
 </section>

@@ -66,4 +66,8 @@ class User extends Authenticatable
     public function isFollowing(User $user) {
         return $this->following()->where('following_id', $user->id)->exists();
     }
+
+    public function posts() {
+        return $this->hasMany(Post::class)->latest();
+    }
 }
