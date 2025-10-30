@@ -295,6 +295,8 @@
                 </div>
                 <p class="mt-3 text-xl font-bold capitalize">{{ $post->title }}</p>
                 <p class="mt-3 text-base text-gray-700 capitalize">{{ $post->description }}</p>
+                <p class="mt-3 text-base">Comments ({{ $post->comments->count() }})</p>
+                <p class="mt-3 text-base">Likes ({{ $post->likes->count() }})</p>
             </div>
         @empty
             <p class="text-gray-500">No posts yet.</p>
