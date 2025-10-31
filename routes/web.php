@@ -12,3 +12,4 @@ Route::get('/home', [HomeController::class, 'show'])->middleware(['auth', 'verif
 require __DIR__ . '/auth.php';
 require __DIR__ . '/user.php';
 require __DIR__ . '/post.php';
+require __DIR__ . '/company.php';

@@ -70,4 +70,14 @@ class User extends Authenticatable
     public function posts() {
         return $this->hasMany(Post::class)->latest();
     }
+
+    public function company()
+    {
+        return $this->hasOne(Company::class, 'owner_id');
+    }
+
+    public function membership()
+    {
+        return $this->hasOne(Member::class);
+    }
 }

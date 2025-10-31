@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Models\Member;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
@@ -13,8 +14,11 @@ class AppLayout extends Component
     {
         $userId = Auth::id();
 
+        $member = Member::where('user_id', $userId)->where('status', 'active')->first();
+
         return view('layouts.app', [
             'user_id' => $userId,
+            'company_id' => $member->company_id ?? null,
         ]);
     }
 }

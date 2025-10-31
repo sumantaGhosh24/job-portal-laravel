@@ -36,6 +36,13 @@
                 </span>
             </div>
         @endisset
+
+        @isset($user->membership)
+            <div class="mt-2">
+                <a href={{ route('companies.show', ['id' => $user->membership->company->id]) }}
+                    class="text-lg font-semibold text-blue-500 hover:underline capitalize">{{ $user->membership->company->name }}</a>
+            </div>
+        @endisset
     </div>
 
     <hr class="my-6 border-gray-200">
