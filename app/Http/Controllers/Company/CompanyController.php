@@ -59,8 +59,12 @@ class CompanyController extends Controller
     public function show(string $id) {
         $company = Company::find($id);
 
+        $userId = Auth::id();
+        $member = Member::where('user_id', $userId)->where('company_id', $id)->first();
+
         return view('companies.details', [
             'company' => $company,
+            'member' => $member,
         ]);
     }
 
@@ -70,7 +74,7 @@ class CompanyController extends Controller
             'sector' => ['required', 'string', 'min:5', 'max:50'],
             'phone_number' => ['required', 'string', 'min:10', 'max:10'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:20'],
-            'size' => ['required', 'string', 'min:5', 'max:50'],
+            'size' => ['required', 'string', 'max:50'],
             'location' => ['required', 'string', 'min:5', 'max:150'],
         ]);
 

@@ -51,10 +51,6 @@ class User extends Authenticatable
         return $this->hasMany(Education::class);
     }
 
-    public function experiences() {
-        return $this->hasMany(Experience::class);
-    }
-
     public function followers() {
         return $this->belongsToMany(User::class, 'follows', 'following_id', 'follower_id');
     }
@@ -76,8 +72,8 @@ class User extends Authenticatable
         return $this->hasOne(Company::class, 'owner_id');
     }
 
-    public function membership()
+    public function memberships()
     {
-        return $this->hasOne(Member::class);
+        return $this->hasMany(Member::class);
     }
 }

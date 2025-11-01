@@ -36,9 +36,6 @@
                         <x-tabs.content tab="resume">
                             @include('profile.partials.update-resume-form')
                         </x-tabs.content>
-                        <x-tabs.content tab="experience">
-                            @include('profile.partials.update-experiences-form')
-                        </x-tabs.content>
                         <x-tabs.content tab="education">
                             @include('profile.partials.update-educations-form')
                         </x-tabs.content>

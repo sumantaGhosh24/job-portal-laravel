@@ -179,7 +179,6 @@ class ProfileController extends Controller
         $user->projects()->delete();
         $user->skills()->delete();
         $user->educations()->delete();
-        $user->experiences()->delete();
 
         if (isset($request->user()->profile_image)) {
             Storage::disk('public')->delete($request->user()->profile_image);

@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Certificate;
 use App\Models\Education;
-use App\Models\Experience;
 use App\Models\Language;
 use App\Models\Post;
 use App\Models\Project;
@@ -30,8 +29,6 @@ class DatabaseSeeder extends Seeder
         // Skill::factory(40)->create();
 
         // Education::factory(40)->create();
-
-        // Experience::factory(40)->create();
 
         // Post::factory(25)->create();
     }

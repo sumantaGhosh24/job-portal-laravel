@@ -1,7 +1,6 @@
 <?php
 use App\Http\Controllers\Profile\CertificateController;
 use App\Http\Controllers\Profile\EducationController;
-use App\Http\Controllers\Profile\ExperienceController;
 use App\Http\Controllers\Profile\FollowController;
 use App\Http\Controllers\Profile\LanguageController;
 use App\Http\Controllers\Profile\ProfileController;
@@ -74,14 +73,6 @@ Route::middleware('auth')->prefix('profile')->name('profile.')->group(function (
         Route::patch('/{id}', [EducationController::class, 'update'])->name('update');
     
         Route::delete('/{id}', [EducationController::class, 'destroy'])->name('destroy');
-    });
-
-    Route::prefix('experience')->name('experience.')->group(function () {
-        Route::post('/', [ExperienceController::class, 'add'])->name('add');
-    
-        Route::patch('/{id}', [ExperienceController::class, 'update'])->name('update');
-    
-        Route::delete('/{id}', [ExperienceController::class, 'destroy'])->name('destroy');
     });
 
     Route::delete('/', [ProfileController::class, 'destroy'])->name('destroy');

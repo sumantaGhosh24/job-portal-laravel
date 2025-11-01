@@ -36,13 +36,6 @@
                 </span>
             </div>
         @endisset
-
-        @isset($user->membership)
-            <div class="mt-2">
-                <a href={{ route('companies.show', ['id' => $user->membership->company->id]) }}
-                    class="text-lg font-semibold text-blue-500 hover:underline capitalize">{{ $user->membership->company->name }}</a>
-            </div>
-        @endisset
     </div>
 
     <hr class="my-6 border-gray-200">
@@ -254,10 +247,12 @@
     <div class="px-6 py-4 border-t border-gray-100 bg-gray-50 rounded-b-xl">
         <h3 class="text-lg font-semibold text-gray-800 mb-3">Experience</h3>
         <ul class="list-disc pl-5 space-y-1 text-gray-700">
-            @forelse ($user->experiences as $experience)
+            @forelse ($user->memberships as $membership)
                 <li>
-                    {{ $experience->job_title }} — {{ $experience->company_name }} ({{ $experience->location }})
-                    [{{ $experience->start_date }} - {{ $experience->end_date ?? 'Present' }}]
+                    {{ $membership->company->name }} - {{ $membership->position ?? 'N/A'}} —
+                    {{ $membership->department ?? 'N/A' }} - {{ $membership->status }} - {{ $membership->role }} -
+                    {{ $membership->joining_date }} -
+                    {{ $membership->leaving_date ?? 'Present' }}
                 </li>
             @empty
                 <p class="text-gray-500 italic">No experiences</p>

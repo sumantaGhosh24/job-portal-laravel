@@ -25,5 +25,7 @@ Route::middleware('auth')->prefix('companies')->name('companies.')->group(functi
 Route::middleware('auth')->name('members.')->group(function () {
     Route::post('/companies/{id}/members', [MemberController::class, 'store'])->name('store');
 
-    Route::patch('/members/{id}/remove', [MemberController::class, 'remove'])->name('remove');
+    Route::patch('/companies/{id}/members/{memberId}', [MemberController::class, 'update'])->name('update');
+
+    Route::delete('/members/{id}/remove', [MemberController::class, 'remove'])->name('remove');
 });
