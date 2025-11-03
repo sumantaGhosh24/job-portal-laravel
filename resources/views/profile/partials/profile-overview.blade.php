@@ -99,6 +99,23 @@
 
     <hr class="my-6 border-gray-200">
 
+    <div class="mt-8">
+        <h3 class="text-xl font-semibold mb-4">Company Followed</h3>
+        <div class="space-y-3">
+            @forelse($user->followedCompanies as $company)
+                <div class="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
+                    <span>{{ $company->name }} ({{ $company->sector ?? 'N/A' }})</span>
+                    <a href="{{ route('companies.show', ['id' => $company->id]) }}"
+                        class="text-blue-500 hover:underline">View</a>
+                </div>
+            @empty
+                <p class="text-gray-500">No company followed yet.</p>
+            @endforelse
+        </div>
+    </div>
+
+    <hr class="my-6 border-gray-200">
+
     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6 px-6 pb-6 text-gray-700">
         <div>
             <p class="text-sm text-gray-500 font-medium">Email Address</p>

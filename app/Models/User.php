@@ -76,4 +76,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Member::class);
     }
+    
+    public function followedCompanies()
+    {
+        return $this->belongsToMany(Company::class, 'company_follows', 'user_id', 'company_id');
+    }
+    
+    public function isFollowingCompany(Company $company)
+    {
+        return $this->followedCompanies()->where('company_id', $company->id)->exists();
+    }
 }

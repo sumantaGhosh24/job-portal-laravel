@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company;
+use App\Models\CompanyPost;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -19,6 +21,19 @@ class HomeController extends Controller
 
         $posts = Post::with('user')->whereIn('user_id', values: [...$followingIds, $user->id])->latest()->paginate(10);
 
-        return view('home', ['suggested' => $suggested, 'posts' => $posts]);
+        $followedCompanyIds = $user->followedCompanies()->pluck('companies.id')->toArray();
+        
+        $memberCompanyIds = $user->memberships()->where('status', 'active')->pluck('company_id')->toArray();
+        $suggestedCompanies = Company::whereNotIn('id', $followedCompanyIds)
+            ->inRandomOrder()
+            ->take(5)
+            ->get();
+            
+        $companyPosts = CompanyPost::with('company')
+            ->whereIn('company_id', $followedCompanyIds)
+            ->latest()
+            ->paginate(10);
+
+        return view('home', ['suggested' => $suggested, 'posts' => $posts, 'suggestedCompanies' => $suggestedCompanies, 'companyPosts' => $companyPosts]);
     }
 }

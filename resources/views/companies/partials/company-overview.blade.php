@@ -43,49 +43,48 @@
 
     <hr class="my-6 border-gray-200">
 
-    {{-- @if (auth()->id() !== $company->id)
-    @if (auth()->user()->isFollowing($company))
-    <form action="{{ route('users.unfollow', $company) }}" method="POST">
-        @csrf
-        @method('delete')
+    @if (auth()->user()->isFollowingCompany($company))
+        <form action="{{ route('companies.unfollow', $company) }}" method="POST">
+            @csrf
+            @method('delete')
 
-        <x-danger-button>{{ __('Unfollow') }}</x-danger-button>
-    </form>
+            <x-danger-button>{{ __('Unfollow') }}</x-danger-button>
+        </form>
     @else
-    <form action="{{ route('users.follow', $company) }}" method="POST">
-        @csrf
+        <form action="{{ route('companies.follow', $company) }}" method="POST">
+            @csrf
 
-        <x-primary-button>{{ __('Follow') }}</x-primary-button>
-    </form>
+            <x-primary-button class='w-fit'>{{ __('Follow') }}</x-primary-button>
+        </form>
     @endif
+
     <hr class="my-6 border-gray-200">
-    @endif --}}
 
-    {{-- <div class="mt-6 grid grid-cols-2 text-center pt-4">
+    <div class="mt-6 grid grid-cols-1 text-center pt-4">
         <div>
-            <p class="text-lg font-bold">{{ $company->followings->count() }}</p>
-            <p class="text-gray-600">Followings</p>
+            <p class="text-lg font-bold">{{ $company->followers->count() }}</p>
+            <p class="text-gray-600">Followers</p>
         </div>
-    </div> --}}
+    </div>
 
-    {{--
-    <hr class="my-6 border-gray-200"> --}}
+    <hr class="my-6 border-gray-200">
 
-    {{-- <div class="mt-8">
-        <h3 class="text-xl font-semibold mt-8 mb-4">Following</h3>
+    <div class="mt-8">
+        <h3 class="text-xl font-semibold mt-8 mb-4">Followers</h3>
         <div class="space-y-3">
-            @forelse($company->following as $followed)
-            <div class="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
-                <span>{{ $followed->first_name }} {{ $followed->last_name }}</span>
-                <a href="{{ route('profile', ['id' => $followed->id]) }}" class="text-blue-500 hover:underline">View</a>
-            </div>
+            @forelse($company->followers as $followers)
+                <div class="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
+                    <span>{{ $followers->first_name }} {{ $followers->last_name }}</span>
+                    <a href="{{ route('profile', ['id' => $followers->id]) }}"
+                        class="text-blue-500 hover:underline">View</a>
+                </div>
             @empty
-            <p class="text-gray-500">Not following anyone yet.</p>
+                <p class="text-gray-500">Not followers anyone yet.</p>
             @endforelse
         </div>
     </div>
 
-    <hr class="my-6 border-gray-200"> --}}
+    <hr class="my-6 border-gray-200">
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6 px-6 pb-6 text-gray-700">
         <div>
@@ -177,51 +176,56 @@
         </div>
     </div>
 
-    {{-- <div class="mt-10 border-t pt-6">
-        <h3 class="text-xl font-semibold mb-4">Posts by {{ $company->name }}</h3>
+    <div class="mt-10 border-t pt-6">
+        <div class="flex items-center justify-between">
+            <h3 class="text-xl font-semibold mb-4">Posts by - {{ $company->name }}</h3>
+            <a href={{ route('company.posts.create', ['id' => $company->id]) }}>
+                <x-primary-button class='max-w-fit'>
+                    Create Post
+                </x-primary-button>
+            </a>
+        </div>
 
         @forelse($company->posts()->paginate(5) as $post)
-        <div class="bg-white p-5 rounded-lg shadow">
-            <div class="flex justify-between items-center mb-3">
-                <div>
-                    <h3 class="font-bold text-gray-800 capitalize">{{ $post->user->first_name }}
-                        {{ $post->user->last_name }}
-                    </h3>
-                    <p class="text-sm text-gray-500">{{ $post->created_at->diffForHumans() }}</p>
-                </div>
-                <div class="flex gap-2 items-center">
-                    <a href="{{ route('posts.show', ['id' => $post->id]) }}">
-                        <x-primary-button class="ms-4 max-w-fit">
-                            {{ __('View') }}
-                        </x-primary-button>
-                    </a>
-                    @if (auth()->id() === $post->user_id)
-                    <a href="{{ route('posts.edit', ['id' => $post->id]) }}">
-                        <x-primary-button class="ms-4 max-w-fit">
-                            {{ __('Update') }}
-                        </x-primary-button>
-                    </a>
-                    <form action="{{ route('posts.destroy', ['id' => $post->id]) }}" method="POST">
-                        @csrf
-                        @method('delete')
+            <div class="bg-white p-5 rounded-lg shadow">
+                <div class="flex justify-between items-center mb-3">
+                    <div>
+                        <h3 class="font-bold text-gray-800 capitalize">{{ $post->company->name }}</h3>
+                        <p class="text-sm text-gray-500">{{ $post->created_at->diffForHumans() }}</p>
+                    </div>
+                    <div class="flex gap-2 items-center">
+                        <a href="{{ route('company.posts.show', ['id' => $post->id]) }}">
+                            <x-primary-button class="ms-4 max-w-fit">
+                                {{ __('View') }}
+                            </x-primary-button>
+                        </a>
+                        @if (auth()->id() === $post->company->owner_id)
+                            <a href="{{ route('company.posts.edit', ['id' => $post->id]) }}">
+                                <x-primary-button class="ms-4 max-w-fit">
+                                    {{ __('Update') }}
+                                </x-primary-button>
+                            </a>
+                            <form action="{{ route('company.posts.destroy', ['id' => $post->id]) }}" method="POST">
+                                @csrf
+                                @method('delete')
 
-                        <x-danger-button class="ms-4 max-w-fit">
-                            {{ __('Delete') }}
-                        </x-danger-button>
-                    </form>
-                    @endif
+                                <x-danger-button class="ms-4 max-w-fit">
+                                    {{ __('Delete') }}
+                                </x-danger-button>
+                            </form>
+                        @endif
+                    </div>
                 </div>
+                <p class="mt-3 text-xl font-bold capitalize">{{ $post->title }}</p>
+                <p class="mt-3 text-base text-gray-700 capitalize">{{ $post->description }}</p>
+                <p class="mt-3 text-base">Comments ({{ $post->comments->count() }})</p>
+                <p class="mt-3 text-base">Likes ({{ $post->likes->count() }})</p>
             </div>
-            <p class="mt-3 text-xl font-bold capitalize">{{ $post->title }}</p>
-            <p class="mt-3 text-base text-gray-700 capitalize">{{ $post->description }}</p>
-            <p class="mt-3 text-base">Comments ({{ $post->comments->count() }})</p>
-            <p class="mt-3 text-base">Likes ({{ $post->likes->count() }})</p>
-        </div>
         @empty
-        <p class="text-gray-500">No posts yet.</p>
+            <p class="text-gray-500">No posts yet.</p>
         @endforelse
         <div class="mt-4">
             {{ $company->posts()->paginate(5)->links() }}
         </div>
-    </div> --}}
+    </div>
 </section>

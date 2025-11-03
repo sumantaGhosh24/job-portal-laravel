@@ -20,7 +20,7 @@ class FollowController extends Controller
             $follower->following()->attach($user->id);
         }
 
-        return back()->with('success', 'You are now following ' . $user->name);
+        return back()->with('message', 'You are now following ' . $user->name);
     }
 
     public function unfollow(User $user)
@@ -31,6 +31,6 @@ class FollowController extends Controller
             $follower->following()->detach($user->id);
         }
 
-        return back()->with('success', 'You unfollowed ' . $user->name);
+        return back()->with('message', 'You unfollowed ' . $user->name);
     }
 }

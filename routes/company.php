@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Company\CompanyController;
+use App\Http\Controllers\Company\CompanyFollowController;
 use App\Http\Controllers\Company\MemberController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,10 @@ Route::middleware('auth')->prefix('companies')->name('companies.')->group(functi
     Route::patch('/banner/{id}', [CompanyController::class, 'banner'])->name('banner');
 
     Route::patch('/social/{id}', [CompanyController::class, 'social'])->name('social');
+
+    Route::post('/{company}/follow', [CompanyFollowController::class, 'follow'])->name('follow');
+
+    Route::delete('/{company}/unfollow', [CompanyFollowController::class, 'unfollow'])->name('unfollow');
 });
 
 Route::middleware('auth')->name('members.')->group(function () {
