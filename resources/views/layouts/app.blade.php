@@ -43,8 +43,24 @@
                 @auth('web')
                     <li><a href="{{ route('home') }}">Home</a></li>
                     <li><a href="{{ route('profile', ['id' => $user_id]) }}">Profile</a></li>
+                    <li><a href="{{ route('jobs.index') }}">Jobs</a></li>
+                    <li><a href="{{ route('applications.index') }}">My Applications</a></li>
                     @if ($company_id)
-                        <li><a href="{{ route('companies.show', ['id' => $company_id]) }}">My Company</a></li>
+                        <div class="dropdown inline-block relative">
+                            <button
+                                class="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center cursor-pointer">
+                                <span class="mr-1">Manage Company</span>
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                </svg>
+                            </button>
+                            <ul class="dropdown-menu absolute hidden text-gray-700 pt-1">
+                                <li><a class="routed-5 bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
+                                        href="{{ route('companies.show', ['id' => $company_id]) }}">My Company</a></li>
+                                <li><a class="routed-5 bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
+                                        href="{{ route('applications.manage') }}">Manage Applications</a></li>
+                            </ul>
+                        </div>
                     @else
                         <li><a href="{{ route('companies.create') }}">Create Company</a></li>
                     @endif

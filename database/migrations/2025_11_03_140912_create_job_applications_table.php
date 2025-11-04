@@ -1,0 +1,27 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('job_applications', function (Blueprint $table) {
+            $table->id();
+            $table->text('cover_letter')->nullable();
+            $table->string('resume_path')->nullable();
+            $table->enum('status', ['pending', 'reviewing', 'accepted', 'rejected'])->default('pending');
+            $table->text('feedback')->nullable();
+            $table->foreignId('company_job_id')->constrained('company_jobs')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('job_applications');
+    }
+};

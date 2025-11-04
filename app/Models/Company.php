@@ -25,6 +25,10 @@ class Company extends Model
     {
         return $this->hasMany(CompanyPost::class)->latest();
     }
+
+    public function jobs() {
+        return $this->hasMany(CompanyJob::class);
+    }
     
     public function followers()
     {

@@ -228,4 +228,57 @@
             {{ $company->posts()->paginate(5)->links() }}
         </div>
     </div>
+
+    <div class="mt-10 border-t pt-6">
+        <div class="flex items-center justify-between">
+            <h3 class="text-xl font-semibold mb-4">Job Posted by - {{ $company->name }}</h3>
+            <a href={{ route('jobs.create', ['id' => $company->id]) }}>
+                <x-primary-button class='max-w-fit'>
+                    Create Job Post
+                </x-primary-button>
+            </a>
+        </div>
+
+        @forelse($company->jobs()->paginate(5) as $job)
+            <div class="bg-white p-5 rounded-lg shadow">
+                <div class="flex justify-between items-center mb-3">
+                    <div>
+                        <h3 class="font-bold text-gray-800 capitalize">{{ $job->company->name }}</h3>
+                        <p class="text-sm text-gray-500">{{ $job->created_at->diffForHumans() }}</p>
+                    </div>
+                    <div class="flex gap-2 items-center">
+                        <a href="{{ route('jobs.show', ['id' => $job->id]) }}">
+                            <x-primary-button class="ms-4 max-w-fit">
+                                {{ __('View') }}
+                            </x-primary-button>
+                        </a>
+                        @if (auth()->id() === $job->company->owner_id)
+                            <a href="{{ route('jobs.edit', ['id' => $job->id]) }}">
+                                <x-primary-button class="ms-4 max-w-fit">
+                                    {{ __('Update') }}
+                                </x-primary-button>
+                            </a>
+                            <form action="{{ route('jobs.destroy', ['id' => $job->id]) }}" method="POST">
+                                @csrf
+                                @method('delete')
+
+                                <x-danger-button class="ms-4 max-w-fit">
+                                    {{ __('Delete') }}
+                                </x-danger-button>
+                            </form>
+                        @endif
+                    </div>
+                </div>
+                <p class="mt-3 text-xl font-bold capitalize">{{ $job->title }}</p>
+                <p class="mt-3 text-base text-gray-700 capitalize">{{ $job->description }}</p>
+                <p class="mt-3 text-base">Type: {{ $job->type }}</p>
+                <p class="mt-3 text-base">Salary: ₹ {{ $job->salary }}</p>
+            </div>
+        @empty
+            <p class="text-gray-500">No job posts yet.</p>
+        @endforelse
+        <div class="mt-4">
+            {{ $company->jobs()->paginate(5)->links() }}
+        </div>
+    </div>
 </section>

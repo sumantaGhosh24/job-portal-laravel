@@ -51,6 +51,10 @@ class User extends Authenticatable
         return $this->hasMany(Education::class);
     }
 
+    public function jobApplications() {
+        return $this->hasMany(JobApplication::class);
+    }
+
     public function followers() {
         return $this->belongsToMany(User::class, 'follows', 'following_id', 'follower_id');
     }
