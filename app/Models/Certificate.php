@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Certificate extends Model
-{
+class Certificate extends Model {
     use HasFactory;
 
     protected $fillable = ['name', 'issuing_organization', 'issue_date', 'user_id'];

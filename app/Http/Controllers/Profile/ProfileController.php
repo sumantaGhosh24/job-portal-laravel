@@ -5,14 +5,12 @@ namespace App\Http\Controllers\Profile;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
 
-class ProfileController extends Controller
-{
+class ProfileController extends Controller {
     public function show(string $id) {
         $user = User::find($id);
 
@@ -24,7 +22,7 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function personal(Request $request): RedirectResponse {
+    public function personal(Request $request) {
         $request->validate([
             'first_name' => ['required', 'string', 'min:3', 'max:20'],
             'last_name' => ['required', 'string', 'min:3', 'max:20'],
@@ -54,7 +52,7 @@ class ProfileController extends Controller
         return redirect()->route('profile', ['id' => $request->user()->id])->with('message', 'User profile personal information updated successfully!');
     }
 
-    public function profile_image(Request $request): RedirectResponse {
+    public function profile_image(Request $request) {
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
@@ -77,7 +75,7 @@ class ProfileController extends Controller
         return redirect()->route('profile', ['id' => $request->user()->id])->with('message', 'User profile image updated successfully!');
     }
 
-    public function background_image(Request $request): RedirectResponse {
+    public function background_image(Request $request) {
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
@@ -100,7 +98,7 @@ class ProfileController extends Controller
         return redirect()->route('profile', ['id' => $request->user()->id])->with('message', 'User background image updated successfully!');
     }
 
-    public function password(Request $request): RedirectResponse {
+    public function password(Request $request) {
         $validated = $request->validateWithBag('updatePassword', [
             'current_password' => ['required', 'current_password'],
             'password' => ['required', Password::defaults(), 'confirmed'],
@@ -113,7 +111,7 @@ class ProfileController extends Controller
         return redirect()->route('profile', ['id' => $request->user()->id])->with('message', 'User password updated successfully!');
     }
 
-    public function professional_summary(Request $request): RedirectResponse {
+    public function professional_summary(Request $request) {
         $request->validate([
             'headline' => ['required', 'string', 'min:3', 'max:150'],
             'professional_summary' => ['required', 'string', 'min:3', 'max:250'],
@@ -127,7 +125,7 @@ class ProfileController extends Controller
         return redirect()->route('profile', ['id' => $request->user()->id])->with('message', 'User professional summary updated successfully!');
     }
 
-    public function resume(Request $request): RedirectResponse {
+    public function resume(Request $request) {
         $request->validate([
             'resume' => 'required|mimes:pdf|max:3072'
         ]);
@@ -150,7 +148,7 @@ class ProfileController extends Controller
         return redirect()->route('profile', ['id' => $request->user()->id])->with('message', 'User resume updated successfully!');
     }
 
-    public function social(Request $request): RedirectResponse {
+    public function social(Request $request) {
         $request->validate([
             'linkedin_url' => 'url:http,https',
             'github_url' => 'url:http,https',
@@ -166,8 +164,7 @@ class ProfileController extends Controller
         return redirect()->route('profile', ['id' => $request->user()->id])->with('message', 'User social links updated successfully!');
     }
 
-    public function destroy(Request $request): RedirectResponse
-    {
+    public function destroy(Request $request) {
         $request->validateWithBag('userDeletion', [
             'password' => ['required', 'current_password'],
         ]);
@@ -202,8 +199,7 @@ class ProfileController extends Controller
         return redirect()->route('home');
     }
 
-    public function logout(Request $request): RedirectResponse
-    {
+    public function logout(Request $request) {
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();

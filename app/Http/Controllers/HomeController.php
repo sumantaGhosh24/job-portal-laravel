@@ -9,10 +9,8 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
-class HomeController extends Controller
-{
-    public function show()
-    {
+class HomeController extends Controller {
+    public function show() {
         $user = Auth::user();
 
         $followingIds = $user->following()->pluck('users.id')->toArray();
@@ -22,8 +20,7 @@ class HomeController extends Controller
         $posts = Post::with('user')->whereIn('user_id', values: [...$followingIds, $user->id])->latest()->paginate(10);
 
         $followedCompanyIds = $user->followedCompanies()->pluck('companies.id')->toArray();
-        
-        $memberCompanyIds = $user->memberships()->where('status', 'active')->pluck('company_id')->toArray();
+
         $suggestedCompanies = Company::whereNotIn('id', $followedCompanyIds)
             ->inRandomOrder()
             ->take(5)

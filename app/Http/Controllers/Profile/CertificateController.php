@@ -5,11 +5,9 @@ namespace App\Http\Controllers\Profile;
 use App\Http\Controllers\Controller;
 use App\Models\Certificate;
 use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
 
-class CertificateController extends Controller
-{
-    public function add(Request $request): RedirectResponse {
+class CertificateController extends Controller {
+    public function add(Request $request) {
         $request->validate([
             'name' => ['required', 'string', 'min:3', 'max:50'],
             'issuing_organization' => ['required', 'string', 'min:3', 'max:100'],
@@ -21,7 +19,7 @@ class CertificateController extends Controller
         return redirect()->route('profile', ['id' => $request->user()->id])->with('message', 'Certificate added successfully!');
     }
 
-    public function update(Request $request, string $id): RedirectResponse {
+    public function update(Request $request, string $id) {
         $request->validate([
             'name' => ['required', 'string', 'min:3', 'max:50'],
             'issuing_organization' => ['required', 'string', 'min:3', 'max:100'],
@@ -35,7 +33,7 @@ class CertificateController extends Controller
         return redirect()->route('profile', ['id' => $request->user()->id])->with('message', 'Certificate updated successfully!');
     }
 
-    public function destroy(Request $request, string $id): RedirectResponse {
+    public function destroy(Request $request, string $id) {
         $certificate = Certificate::find($id);
 
         $certificate->delete();

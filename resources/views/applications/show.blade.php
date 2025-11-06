@@ -4,16 +4,14 @@
     @if (session('message'))
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900">
-                        {{ session('message') }}
-                    </div>
+                <div class="overflow-hidden shadow-sm sm:rounded-lg dark:shadow-gray-300">
+                    <p class="p-6">{{ session('message') }}</p>
                 </div>
             </div>
         </div>
     @endif
 
-    <div class="container mx-auto bg-white p-5 rounded-md shadow-md my-5">
+    <div class="container mx-auto p-5 rounded-md shadow-md my-5 dark:shadow-gray-300">
         <h3 class="text-2xl font-semibold mb-5">Application Details</h3>
         @if(auth()->id() === $application->user_id || auth()->id() === $application->job->company->owner_id)
             <div>
@@ -37,7 +35,6 @@
                     <form action="{{ route('applications.status', ['id' => $application->id]) }}" method="POST" class="my-5">
                         @csrf
                         @method('patch')
-
                         <div class="mt-4">
                             <x-input-label for="status" :value="__('Application Status')" />
                             <select id="status" name="status" class="mt-2 w-full px-4 py-2 rounded-md border border-gray-300">
@@ -52,27 +49,20 @@
                                 </option>
                             </select>
                         </div>
-
                         <div class="mt-4">
                             <x-input-label for="feedback" :value="__('Application Feedback')" />
-                            <textarea id="feedback" name="feedback"
-                                class="mt-1 block w-full px-4 py-2 rounded-md border border-gray-300" required autofocus
-                                autocomplete="feedback">{{ old('feedback', $application->feedback) }}</textarea>
+                            <textarea id="feedback" name="feedback" class="mt-1 block w-full px-4 py-2 rounded-md border border-gray-300" required autofocus autocomplete="feedback">{{ old('feedback', $application->feedback) }}</textarea>
                             <x-input-error class="mt-2" :messages="$errors->get('feedback')" />
                         </div>
-
-                        <x-primary-button class="mt-5 max-w-fit">
-                            {{ __('Update Application') }}
-                        </x-primary-button>
+                        <x-primary-button class="mt-5">{{ __('Update Application') }}</x-primary-button>
                     </form>
                 @endif
                 <h3 class="mt-5 text-xl font-bold">Cover Letter: </h3>
                 <p class="text-lg">{{ $application->cover_letter }}</p>
                 <div class="mt-5">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Resume</h3>
-                    <a href="{{ asset('storage/' . $application->resume_path) }}" target="_blank"
-                        class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-md shadow hover:bg-indigo-700 transition-all">
-                        Download Resume
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2 dark:text-white">Resume</h3>
+                    <a href="{{ asset('storage/' . $application->resume_path) }}" target="_blank">
+                        <x-primary-button>{{ __("Download Resume") }}</x-primary-button>
                     </a>
                 </div>
                 @if ($application->feedback)
@@ -81,7 +71,7 @@
                 @endif
             </div>
         @else
-            <p class="text-gray-500">You are not authorized to view this application.</p>
+            <p class="text-gray-500 dark:text-white">You are not authorized to view this application.</p>
         @endif
     </div>
 </x-app-layout>

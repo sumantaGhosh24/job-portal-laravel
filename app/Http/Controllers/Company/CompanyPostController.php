@@ -6,13 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\CompanyPost;
 use App\Helpers\MarkdownHelper;
 use App\Models\Company;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
-class CompanyPostController extends Controller
-{
-    public function show(string $id)
-    {
+class CompanyPostController extends Controller {
+    public function show(string $id) {
         $post = CompanyPost::find($id);
 
         $post->html_content = MarkdownHelper::render($post->content);
@@ -20,8 +17,7 @@ class CompanyPostController extends Controller
         return view('company-posts.show', ['post' => $post]);
     }
 
-    public function create(string $id) 
-    {
+    public function create(string $id)  {
         $company = Company::find($id);
 
         return view('company-posts.create', [
@@ -29,8 +25,7 @@ class CompanyPostController extends Controller
         ]);
     }
 
-    public function store(Request $request, string $id): RedirectResponse
-    {
+    public function store(Request $request, string $id) {
         $request->validate([
             'title' => ['required', 'string', 'min:5', 'max:150'],
             'description' => ['required', 'string', 'min:3', 'max:200'],
@@ -42,15 +37,13 @@ class CompanyPostController extends Controller
         return redirect()->route('company.posts.create', ['id' => $id])->with('message', 'Post created successful!');
     }
 
-    public function edit(string $id)
-    {
+    public function edit(string $id) {
         $post = CompanyPost::find($id);
 
         return view('company-posts.edit', ['post' => $post]);
     }
 
-    public function update(Request $request, string $id): RedirectResponse
-    {
+    public function update(Request $request, string $id) {
         $request->validate([
             'title' => ['required', 'string', 'min:5', 'max:150'],
             'description' => ['required', 'string', 'min:3', 'max:200'],
@@ -64,8 +57,7 @@ class CompanyPostController extends Controller
         return redirect()->route('company.posts.edit', ['id' => $id])->with('message', 'Post updated successful!');
     }
 
-    public function destroy(string $id): RedirectResponse
-    {
+    public function destroy(string $id) {
         $post = CompanyPost::find($id);
 
         $post->delete();

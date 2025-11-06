@@ -7,10 +7,8 @@ use App\Models\CompanyPost;
 use App\Models\PostComment;
 use Illuminate\Http\Request;
 
-class CompanyPostCommentController extends Controller
-{
-    public function store(Request $request, CompanyPost $post)
-    {
+class CompanyPostCommentController extends Controller {
+    public function store(Request $request, CompanyPost $post) {
         $request->validate(['comment' => 'required|string|max:200']);
 
         $post->comments()->create([
@@ -21,8 +19,7 @@ class CompanyPostCommentController extends Controller
         return back();
     }
 
-    public function destroy(Request $request, PostComment $comment)
-    {
+    public function destroy(Request $request, PostComment $comment) {
         if ($comment->user_id === $request->user()->id) {
             $comment->delete();
         }

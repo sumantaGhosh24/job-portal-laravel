@@ -5,11 +5,9 @@ namespace App\Http\Controllers\Profile;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
 
-class ProjectController extends Controller
-{
-    public function add(Request $request): RedirectResponse {
+class ProjectController extends Controller {
+    public function add(Request $request) {
         $request->validate([
             'title' => ['required', 'string', 'min:3', 'max:150'],
             'description' => ['required', 'string', 'min:3', 'max:500'],
@@ -21,7 +19,7 @@ class ProjectController extends Controller
         return redirect()->route('profile', ['id' => $request->user()->id])->with('message', 'Project added successfully!');
     }
 
-    public function update(Request $request, string $id): RedirectResponse {
+    public function update(Request $request, string $id) {
         $request->validate([
             'title' => ['required', 'string', 'min:3', 'max:150'],
             'description' => ['required', 'string', 'min:3', 'max:500'],
@@ -35,7 +33,7 @@ class ProjectController extends Controller
         return redirect()->route('profile', ['id' => $request->user()->id])->with('message', 'Project updated successfully!');
     }
 
-    public function destroy(Request $request, string $id): RedirectResponse {
+    public function destroy(Request $request, string $id) {
         $project = Project::find($id);
 
         $project->delete();

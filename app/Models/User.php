@@ -6,25 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
-{
+class User extends Authenticatable {
     use HasFactory, Notifiable;
 
-    protected $fillable = [
-        'first_name',
-        'last_name',
-        'username',
-        'email',
-        'password',
-    ];
+    protected $fillable = ['first_name', 'last_name', 'username', 'email', 'password'];
 
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    protected $hidden = ['password', 'remember_token'];
 
-    protected function casts(): array
-    {
+    protected function casts(): array {
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
@@ -71,23 +60,19 @@ class User extends Authenticatable
         return $this->hasMany(Post::class)->latest();
     }
 
-    public function company()
-    {
+    public function company() {
         return $this->hasOne(Company::class, 'owner_id');
     }
 
-    public function memberships()
-    {
+    public function memberships() {
         return $this->hasMany(Member::class);
     }
     
-    public function followedCompanies()
-    {
+    public function followedCompanies() {
         return $this->belongsToMany(Company::class, 'company_follows', 'user_id', 'company_id');
     }
     
-    public function isFollowingCompany(Company $company)
-    {
+    public function isFollowingCompany(Company $company) {
         return $this->followedCompanies()->where('company_id', $company->id)->exists();
     }
 }

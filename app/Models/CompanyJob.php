@@ -3,34 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class CompanyJob extends Model
-{
-    protected $fillable = [
-        'company_id',
-        'title',
-        'description',
-        'location',
-        'type',
-        'salary',
-        'deadline',
-        'is_active',
-    ];
+class CompanyJob extends Model {
+    protected $fillable = ['company_id', 'title', 'description', 'location', 'type', 'salary', 'deadline', 'is_active'];
 
     protected $casts = [
         'deadline' => 'date',
         'is_active' => 'boolean',
     ];
 
-    public function company(): BelongsTo
-    {
+    public function company() {
         return $this->belongsTo(Company::class);
     }
 
-    public function applications(): HasMany
-    {
+    public function applications() {
         return $this->hasMany(JobApplication::class);
     }
 }

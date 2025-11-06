@@ -11,8 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
-class CompanyController extends Controller
-{
+class CompanyController extends Controller {
     public function create() {
         $id = Auth::id();
         

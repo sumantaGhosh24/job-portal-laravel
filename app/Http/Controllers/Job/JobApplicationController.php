@@ -10,10 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-class JobApplicationController extends Controller
-{
-    public function index()
-    {
+class JobApplicationController extends Controller {
+    public function index() {
         $applications = JobApplication::where('user_id', Auth::id())
             ->with('job.company')
             ->orderBy('created_at', 'desc')
@@ -22,8 +20,7 @@ class JobApplicationController extends Controller
         return view('applications.index', ['applications' => $applications]);
     }
 
-    public function manage()
-    {
+    public function manage() {
         $company = Company::where('owner_id', Auth::id())->pluck('id')->first();
 
         $jobs = CompanyJob::where('company_id', $company)->with('applications')->get();
@@ -31,8 +28,7 @@ class JobApplicationController extends Controller
         return view('applications.manage', ['jobs' => $jobs]);
     }
 
-    public function store(Request $request, string $id)
-    {
+    public function store(Request $request, string $id) {
         $request->validate([
             'cover_letter' => 'nullable|string',
             'resume' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
@@ -58,15 +54,13 @@ class JobApplicationController extends Controller
         return redirect()->route('jobs.show', ['id' => $id])->with('message', 'Job application submitted successfully!');
     }
 
-    public function show(string $id)
-    {
+    public function show(string $id) {
         $application = JobApplication::with('job.company')->findOrFail($id);
 
         return view('applications.show', ['application' => $application]);
     }
 
-    public function updateStatus(Request $request, string $id)
-    {
+    public function updateStatus(Request $request, string $id) {
         $request->validate([
             'status' => 'required|string',
             'feedback' => 'required|string',

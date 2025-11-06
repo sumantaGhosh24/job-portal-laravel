@@ -1,9 +1,8 @@
 <x-app-layout>
     <x-slot:title>My Job Applications</x-slot:title>
 
-    <div class="container mx-auto bg-white p-5 rounded-md shadow-md my-5">
+    <div class="container mx-auto p-5 rounded-md shadow-md my-5 dark:shadow-gray-300">
         <h3 class="text-2xl font-semibold mb-5">My Job Applications</h3>
-
         @if($applications->count() > 0)
             <table class="border-collapse border border-gray-400 w-full">
                 <thead>
@@ -36,9 +35,7 @@
                             </td>
                             <td class="border border-gray-300 px-2 py-1.5">
                                 <a href="{{ route('applications.show', ['id' => $application->id]) }}">
-                                    <x-primary-button class="max-w-fit">
-                                        {{ __('View') }}
-                                    </x-primary-button>
+                                    <x-primary-button>{{ __('View') }}</x-primary-button>
                                 </a>
                             </td>
                         </tr>
@@ -46,7 +43,7 @@
                 </tbody>
             </table>
         @else
-            <p class="text-gray-500">No job applications.</p>
+            <p class="text-gray-500 dark:text-white">No job applications.</p>
         @endif
         <div class="mt-4">
             {{ $applications->links() }}

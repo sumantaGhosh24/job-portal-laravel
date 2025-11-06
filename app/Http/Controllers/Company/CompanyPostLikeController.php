@@ -5,10 +5,8 @@ namespace App\Http\Controllers\Company;
 use App\Http\Controllers\Controller;
 use App\Models\CompanyPost;
 
-class CompanyPostLikeController extends Controller
-{
-    public function toggle(CompanyPost $post)
-    {
+class CompanyPostLikeController extends Controller {
+    public function toggle(CompanyPost $post) {
         $user = auth()->user();
 
         if ($post->isLikedBy($user)) {

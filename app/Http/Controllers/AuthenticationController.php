@@ -6,22 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
-use Illuminate\View\View;
 
-class AuthenticationController extends Controller
-{
-    public function create(): View
-    {
+class AuthenticationController extends Controller {
+    public function create() {
         return view('auth.register');
     }
 
-    public function store(Request $request): RedirectResponse
-    {
+    public function store(Request $request) {
         $request->validate([
             'first_name' => ['required', 'string', 'min:3', 'max:20'],
             'last_name' => ['required', 'string', 'min:3', 'max:20'],
@@ -45,13 +40,11 @@ class AuthenticationController extends Controller
         return redirect()->route('home')->with('message', 'User registered successfully!');
     }
 
-    public function login_create(): View
-    {
+    public function login_create() {
         return view('auth.login');
     }
 
-    public function login_store(LoginRequest $request): RedirectResponse
-    {
+    public function login_store(LoginRequest $request) {
         $request->authenticate();
 
         $request->session()->regenerate();

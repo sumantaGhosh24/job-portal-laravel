@@ -8,12 +8,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\Response;
 
-class RedirectIfAuthenticated
-{
+class RedirectIfAuthenticated {
     protected static $redirectToCallback;
 
-    public function handle(Request $request, Closure $next, string ...$guards): Response
-    {
+    public function handle(Request $request, Closure $next, string ...$guards): Response {
         $guards = empty($guards) ? [null] : $guards;
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
@@ -24,15 +22,13 @@ class RedirectIfAuthenticated
         return $next($request);
     }
 
-    protected function redirectTo(Request $request): ?string
-    {
+    protected function redirectTo(Request $request): ?string {
         return static::$redirectToCallback
             ? call_user_func(static::$redirectToCallback, $request)
             : $this->defaultRedirectUri();
     }
 
-    protected function defaultRedirectUri(): string
-    {
+    protected function defaultRedirectUri(): string {
         foreach (['dashboard', 'home'] as $uri) {
             if (Route::has($uri)) {
                 return route($uri);
@@ -50,8 +46,7 @@ class RedirectIfAuthenticated
         return '/';
     }
 
-    public static function redirectUsing(callable $redirectToCallback)
-    {
+    public static function redirectUsing(callable $redirectToCallback) {
         static::$redirectToCallback = $redirectToCallback;
     }
 }

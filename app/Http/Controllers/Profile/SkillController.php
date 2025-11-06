@@ -5,11 +5,9 @@ namespace App\Http\Controllers\Profile;
 use App\Http\Controllers\Controller;
 use App\Models\Skill;
 use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
 
-class SkillController extends Controller
-{
-    public function add(Request $request): RedirectResponse {
+class SkillController extends Controller {
+    public function add(Request $request) {
         $request->validate([
             'name' => ['required', 'string', 'min:3', 'max:50'],
             'proficiency' => ['required', 'string', 'min:3', 'max:50'],
@@ -20,7 +18,7 @@ class SkillController extends Controller
         return redirect()->route('profile', ['id' => $request->user()->id])->with('message', 'Skill added successfully!');
     }
 
-    public function update(Request $request, string $id): RedirectResponse {
+    public function update(Request $request, string $id) {
         $request->validate([
             'name' => ['required', 'string', 'min:3', 'max:50'],
             'proficiency' => ['required', 'string', 'min:3', 'max:50'],
@@ -33,7 +31,7 @@ class SkillController extends Controller
         return redirect()->route('profile', ['id' => $request->user()->id])->with('message', 'Skill updated successfully!');
     }
 
-    public function destroy(Request $request, string $id): RedirectResponse {
+    public function destroy(Request $request, string $id) {
         $skill = Skill::find($id);
 
         $skill->delete();

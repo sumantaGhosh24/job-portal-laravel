@@ -7,10 +7,8 @@ use App\Models\CompanyJob;
 use App\Models\Company;
 use Illuminate\Http\Request;
 
-class JobController extends Controller
-{
-    public function index()
-    {
+class JobController extends Controller {
+    public function index() {
         $jobs = CompanyJob::where('is_active', true)
             ->orderBy('created_at', 'desc')
             ->with('company')
@@ -19,14 +17,12 @@ class JobController extends Controller
         return view('jobs.index', ['jobs' => $jobs]);
     }
 
-    public function create(string $id)
-    {
+    public function create(string $id) {
         $company = Company::find($id);
         return view('jobs.create', ['company' => $company]);
     }
 
-    public function store(Request $request, string $id)
-    {
+    public function store(Request $request, string $id) {
         $request->validate([
             'title' => 'required|string|min:5|max:150',
             'description' => 'required|string|min:5|max:255',
@@ -41,20 +37,19 @@ class JobController extends Controller
         return redirect()->route('jobs.create', ['id' => $id])->with('message', 'Job posting created successfully!');
     }
 
-    public function show(string $id)
-    {
+    public function show(string $id) {
         $job = CompanyJob::with('company')->findOrFail($id);
+
         return view('jobs.show', ['job' => $job]);
     }
 
-    public function edit(string $id)
-    {
+    public function edit(string $id) {
         $job = CompanyJob::find($id);
+
         return view('jobs.edit', ['job' => $job]);
     }
 
-    public function update(Request $request, string $id)
-    {
+    public function update(Request $request, string $id) {
         $request->validate([
             'title' => 'required|string|min:5|max:150',
             'description' => 'required|string|min:5|max:255',
@@ -72,8 +67,7 @@ class JobController extends Controller
         return redirect()->route('jobs.edit', ['id' => $id])->with('message', 'Job posting updated successfully!');
     }
 
-    public function destroy(string $id)
-    {
+    public function destroy(string $id) {
         $job = CompanyJob::find($id);
         
         $job->delete();

@@ -5,11 +5,9 @@ namespace App\Http\Controllers\Profile;
 use App\Http\Controllers\Controller;
 use App\Models\Education;
 use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
 
-class EducationController extends Controller
-{
-    public function add(Request $request): RedirectResponse {
+class EducationController extends Controller {
+    public function add(Request $request) {
         $request->validate([
             'degree' => ['required', 'string', 'min:3', 'max:50'],
             'field_of_study' => ['required', 'string', 'min:3', 'max:50'],
@@ -23,7 +21,7 @@ class EducationController extends Controller
         return redirect()->route('profile', ['id' => $request->user()->id])->with('message', 'Education added successfully!');
     }
 
-    public function update(Request $request, string $id): RedirectResponse {
+    public function update(Request $request, string $id) {
         $request->validate([
             'degree' => ['required', 'string', 'min:3', 'max:50'],
             'field_of_study' => ['required', 'string', 'min:3', 'max:50'],
@@ -39,7 +37,7 @@ class EducationController extends Controller
         return redirect()->route('profile', ['id' => $request->user()->id])->with('message', 'Education updated successfully!');
     }
 
-    public function destroy(Request $request, string $id): RedirectResponse {
+    public function destroy(Request $request, string $id) {
         $education = Education::find($id);
 
         $education->delete();

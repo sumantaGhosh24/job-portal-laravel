@@ -6,10 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Member;
 use Illuminate\Http\Request;
 
-class MemberController extends Controller
-{
-    public function store(Request $request, string $id)
-    {
+class MemberController extends Controller {
+    public function store(Request $request, string $id) {
         $request->validate([
             'user_id' => 'required|exists:users,id',
             'position' => 'required|string',
@@ -54,8 +52,7 @@ class MemberController extends Controller
         return back()->with('message', 'Employee updated successfully!');
     }
 
-    public function remove(string $id)
-    {
+    public function remove(string $id) {
         $member = Member::find($id);
 
         $member->update([

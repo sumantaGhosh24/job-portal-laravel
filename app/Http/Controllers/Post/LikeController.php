@@ -5,10 +5,8 @@ namespace App\Http\Controllers\Post;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 
-class LikeController extends Controller
-{
-    public function toggle(Post $post)
-    {
+class LikeController extends Controller {
+    public function toggle(Post $post) {
         $user = auth()->user();
 
         if ($post->isLikedBy($user)) {
