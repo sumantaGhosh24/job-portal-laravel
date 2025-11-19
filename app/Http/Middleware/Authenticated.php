@@ -7,27 +7,33 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\Contracts\Auth\Middleware\AuthenticatesRequests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
-class Authenticated implements AuthenticatesRequests {
+class Authenticated implements AuthenticatesRequests
+{
     protected $auth;
 
     protected static $redirectToCallback;
 
-    public function __construct(Auth $auth) {
+    public function __construct(Auth $auth)
+    {
         $this->auth = $auth;
     }
 
-    public static function using($guard, ...$others) {
+    public static function using($guard, ...$others)
+    {
         return static::class . ':' . implode(',', [$guard, ...$others]);
     }
 
-    public function handle($request, Closure $next, ...$guards) {
+    public function handle($request, Closure $next, ...$guards)
+    {
         $this->authenticate($request, $guards);
 
         return $next($request);
     }
 
-    protected function authenticate($request, array $guards) {
+    protected function authenticate($request, array $guards)
+    {
         if (empty($guards)) {
             $guards = [null];
         }
@@ -41,7 +47,8 @@ class Authenticated implements AuthenticatesRequests {
         $this->unauthenticated($request, $guards);
     }
 
-    protected function unauthenticated($request, array $guards) {
+    protected function unauthenticated($request, array $guards)
+    {
         throw new AuthenticationException(
             'Unauthenticated.',
             $guards,
@@ -49,13 +56,27 @@ class Authenticated implements AuthenticatesRequests {
         );
     }
 
-    protected function redirectTo(Request $request) {
+    protected function redirectTo(Request $request)
+    {
         if (static::$redirectToCallback) {
             return call_user_func(static::$redirectToCallback, $request);
         }
+
+        if (Route::has('login')) {
+            return route('login');
+        }
+
+        $routes = Route::getRoutes()->get('GET');
+
+        if (isset($routes['login'])) {
+            return '/login';
+        }
+
+        return '/';
     }
 
-    public static function redirectUsing(callable $redirectToCallback) {
+    public static function redirectUsing(callable $redirectToCallback)
+    {
         static::$redirectToCallback = $redirectToCallback;
     }
 }

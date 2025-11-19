@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CompanyJob extends Model {
+class CompanyJob extends Model
+{
     protected $fillable = ['company_id', 'title', 'description', 'location', 'type', 'salary', 'deadline', 'is_active'];
 
     protected $casts = [
@@ -12,11 +13,13 @@ class CompanyJob extends Model {
         'is_active' => 'boolean',
     ];
 
-    public function company() {
+    public function company()
+    {
         return $this->belongsTo(Company::class);
     }
 
-    public function applications() {
+    public function applications()
+    {
         return $this->hasMany(JobApplication::class);
     }
 }
